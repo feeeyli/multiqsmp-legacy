@@ -16,6 +16,6 @@
 	}
 
 	.scrollbar::-webkit-scrollbar-thumb:hover {
-		background: #c0a0b9;
+		@apply bg-cold-purple-400;
 	}
 }

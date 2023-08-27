@@ -20,13 +20,14 @@ export const Streamer = ({ onClick, streamer, selected }: Props) => {
 		<button
 			onClick={() => onClick && onClick(streamer.twitchName)}
 			data-selected={selected}
-			className="group overflow-hidden rounded-xl bg-[#333] w-32 h-min data-[selected=true]:shadow-[0px_0px_0px_2px_#bea7e5]"
+			className="group overflow-hidden rounded-xl bg-[#333] w-fit h-min data-[selected=true]:shadow-[0px_0px_0px_2px_#bea7e5]"
 		>
 			<Image
 				src={streamer.avatarUrl}
 				alt={t("avatar") + streamer.displayName}
 				width={128}
 				height={128}
+				className="pointer-events-none"
 			/>
 			<div className="py-2 px-3 text-white text-left group-data-[selected=true]:text-cold-purple-500">
 				{streamer.displayName}

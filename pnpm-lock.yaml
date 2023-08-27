@@ -35,8 +35,8 @@ dependencies:
     specifier: 13.4.13
     version: 13.4.13(react-dom@18.2.0)(react@18.2.0)
   next-intl:
-    specifier: ^2.20.0
-    version: 2.20.0(next@13.4.13)(react@18.2.0)
+    specifier: 3.0.0-beta.12
+    version: 3.0.0-beta.12(next@13.4.13)(react@18.2.0)
   postcss:
     specifier: 8.4.27
     version: 8.4.27
@@ -2079,8 +2079,8 @@ packages:
     engines: {node: '>= 0.6'}
     dev: false
 
-  /next-intl@2.20.0(next@13.4.13)(react@18.2.0):
-    resolution: {integrity: sha512-zeGod4WuS/j8dhDM1eLlt+GTCqqq1b09l/eHxUWQjGrK87BeN+crKasHjZWMNm38g0ddWpBW6i9KDZcTn8/p1A==}
+  /next-intl@3.0.0-beta.12(next@13.4.13)(react@18.2.0):
+    resolution: {integrity: sha512-M5kUwgY/qCij84Lq+A5zEdOh9dfFWgiC2gy0bdFWq1wOkimkGYx1CObrAlhB1kMXd1gikuuhL9mnMBHd7mdPuQ==}
     engines: {node: '>=10'}
     peerDependencies:
       next: ^10.0.0 || ^11.0.0 || ^12.0.0 || ^13.0.0
@@ -2090,7 +2090,8 @@ packages:
       negotiator: 0.6.3
       next: 13.4.13(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
-      use-intl: 2.20.0(react@18.2.0)
+      server-only: 0.0.1
+      use-intl: 3.0.0-beta.2(react@18.2.0)
     dev: false
 
   /next@13.4.13(react-dom@18.2.0)(react@18.2.0):
@@ -2583,6 +2584,10 @@ packages:
       lru-cache: 6.0.0
     dev: false
 
+  /server-only@0.0.1:
+    resolution: {integrity: sha512-qepMx2JxAa5jjfzxG79yPPq+8BuFToHd1hm7kI+Z4zAq1ftQiP7HcxMhDDItrbtwVeLg/cY2JnKnrcFkmiswNA==}
+    dev: false
+
   /shebang-command@2.0.0:
     resolution: {integrity: sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA==}
     engines: {node: '>=8'}
@@ -2899,8 +2904,8 @@ packages:
       tslib: 2.6.1
     dev: false
 
-  /use-intl@2.20.0(react@18.2.0):
-    resolution: {integrity: sha512-h9aOveHyqUSNshPvWSx88f0ny0w/F4kTG3oM1lGZYTlfK7vE6Ic9vVM7TDn/7idD3v6b2Vasp7q0le/opn6j/Q==}
+  /use-intl@3.0.0-beta.2(react@18.2.0):
+    resolution: {integrity: sha512-6q3p15QFpiYk0UptLXPOTHHczZRle4fRCb+VKcaM6m9m3LDZ28nN0SFsE3STdnYGvXXsozE6t6O3t9GC1/WdPA==}
     engines: {node: '>=10'}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0

@@ -1,3 +1,5 @@
+"use client";
+
 import STREAMERS from "@/streamers.json";
 
 import * as DialogPrimitive from "@radix-ui/react-dialog";
@@ -19,20 +21,21 @@ export const Dialog = ({
 }: {
 	locale: string;
 	streams?: string[];
+	streamers: Streamer[];
 }) => {
 	const t = useTranslations("modal");
 
 	const router = useRouter();
 
-	const [seletedStreamers, setSeletedStreamers] = useState<string[]>(
+	const [selectedStreamers, setSelectedStreamers] = useState<string[]>(
 		streams || []
 	);
 
 	function handleClick(streamer: string) {
-		if (seletedStreamers.includes(streamer)) {
-			setSeletedStreamers((old) => old.filter((s) => s !== streamer));
+		if (selectedStreamers.includes(streamer)) {
+			setSelectedStreamers((old) => old.filter((s) => s !== streamer));
 		} else {
-			setSeletedStreamers((old) => [...old, streamer]);
+			setSelectedStreamers((old) => [...old, streamer]);
 		}
 	}
 
@@ -56,13 +59,13 @@ export const Dialog = ({
 							</button>
 						</DialogPrimitive.Close>
 					</header>
-					<main className="max-h-96 p-[2px] overflow-y-auto mt-4 grid grid-cols-3 gap-4 scrollbar pr-3">
+					<main className="max-h-96 p-[2px] overflow-y-auto mt-4 grid grid-cols-[repeat(3,_minmax(0,_8rem))] gap-4 scrollbar pr-3">
 						{STREAMERS.map((streamer) => (
 							<Streamer
 								key={streamer.twitchName}
 								streamer={streamer}
 								onClick={handleClick}
-								selected={seletedStreamers.includes(
+								selected={selectedStreamers.includes(
 									streamer.twitchName
 								)}
 							/>
@@ -72,7 +75,7 @@ export const Dialog = ({
 						<div className="space-x-2">
 							<button
 								className="p-1 rounded-lg hover:bg-zinc-900 transition-all"
-								onClick={() => setSeletedStreamers([])}
+								onClick={() => setSelectedStreamers([])}
 							>
 								<Square
 									size={20}
@@ -83,7 +86,7 @@ export const Dialog = ({
 							<button
 								className="p-1 rounded-lg hover:bg-zinc-900 transition-all"
 								onClick={() =>
-									setSeletedStreamers(
+									setSelectedStreamers(
 										STREAMERS.map(
 											(streamer) => streamer.twitchName
 										)
@@ -101,7 +104,7 @@ export const Dialog = ({
 							className="flex items-center gap-2 hover:bg-zinc-900 p-2 rounded-lg transition-all"
 							onClick={() =>
 								router.push(
-									`/${locale}/${seletedStreamers.join("/")}`
+									`/${locale}/${selectedStreamers.join("/")}`
 								)
 							}
 						>
