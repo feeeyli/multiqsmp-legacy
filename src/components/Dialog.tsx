@@ -60,7 +60,7 @@ export const Dialog = ({
 							</button>
 						</DialogPrimitive.Close>
 					</header>
-					<main className="max-h-96 p-[2px] overflow-y-auto mt-4 grid grid-cols-[repeat(3,_minmax(0,_8rem))] gap-4 scrollbar pr-3">
+					<main className="max-h-96 p-[2px] overflow-y-auto mt-4 flex flex-col lg:grid grid-cols-[repeat(3,_minmax(0,_8rem))] gap-4 scrollbar pr-3">
 						{streamers.map((streamer) => (
 							<Streamer
 								key={streamer.twitchName}
