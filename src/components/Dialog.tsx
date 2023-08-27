@@ -43,7 +43,7 @@ export const Dialog = ({
 	return (
 		<DialogPrimitive.Root>
 			<DialogPrimitive.Trigger asChild>
-				<button className="bg-cold-purple-500 px-3 py-1 rounded-lg sm:rounded-l-lg absolute left-1/2 -translate-x-1/2 mx-auto h-fit bottom-8 sm:right-0 sm:translate-x-9 sm:hover:translate-x-0 sm:transition-transform">
+				<button className="bg-cold-purple-500 px-3 py-1 rounded-lg sm:rounded-r-none absolute right-1/2 translate-x-1/2 mx-auto h-fit bottom-8 sm:right-0 sm:translate-x-9 sm:hover:translate-x-0 sm:transition-transform">
 					<Swap size={28} color="#fff" weight="bold" />
 				</button>
 			</DialogPrimitive.Trigger>
@@ -60,7 +60,7 @@ export const Dialog = ({
 							</button>
 						</DialogPrimitive.Close>
 					</header>
-					<main className="max-h-96 p-[2px] overflow-y-auto mt-4 grid sm:flex flex-col justify-center lg:grid grid-cols-[repeat(2,_minmax(0,_6rem))] sm:grid-cols-[repeat(3,_minmax(0,_8rem))] gap-4 scrollbar pr-3">
+					<main className="max-h-96 p-[2px] overflow-y-auto mt-4 grid sm:flex flex-col justify-center md:grid grid-cols-[repeat(2,_minmax(0,_6rem))] sm:grid-cols-[repeat(3,_minmax(0,_8rem))] gap-4 scrollbar pr-3">
 						{streamers.map((streamer) => (
 							<Streamer
 								key={streamer.twitchName}

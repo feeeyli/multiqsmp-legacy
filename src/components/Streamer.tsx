@@ -20,7 +20,7 @@ export const Streamer = ({ onClick, streamer, selected }: Props) => {
 		<button
 			onClick={() => onClick && onClick(streamer.twitchName)}
 			data-selected={selected}
-			className="group lg:block sm:flex block sm:w-full lg:overflow-hidden rounded-xl bg-[#333] lg:w-fit w-fit h-min data-[selected=true]:shadow-[0px_0px_0px_2px_#bea7e5]"
+			className="group md:block sm:flex block sm:w-full lg:overflow-hidden rounded-xl bg-[#333] lg:w-fit w-fit h-min data-[selected=true]:shadow-[0px_0px_0px_2px_#bea7e5]"
 		>
 			<Image
 				src={streamer.avatarUrl}
