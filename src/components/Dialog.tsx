@@ -49,8 +49,8 @@ export const Dialog = ({
 			</DialogPrimitive.Trigger>
 			<DialogPrimitive.Portal>
 				<DialogPrimitive.Overlay className="bg-blackA9 data-[state=open]:animate-overlayShow fixed inset-0" />
-				<DialogPrimitive.Content className="text-white w-[90%] sm:w-auto px-8 data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] rounded-xl bg-silver-950 focus:outline-none">
-					<header className="pt-8 flex justify-between">
+				<DialogPrimitive.Content className="text-white w-[90%] sm:w-[75%] flex flex-col items-center px-8 data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] rounded-xl bg-silver-950 focus:outline-none">
+					<header className="pt-8 flex justify-between w-full">
 						<DialogPrimitive.Title className="text-base">
 							{t("title")}
 						</DialogPrimitive.Title>
@@ -60,7 +60,7 @@ export const Dialog = ({
 							</button>
 						</DialogPrimitive.Close>
 					</header>
-					<main className="max-h-96 p-[2px] overflow-y-auto mt-4 grid sm:flex flex-col justify-center md:grid grid-cols-[repeat(2,_minmax(0,_6rem))] sm:grid-cols-[repeat(3,_minmax(0,_8rem))] gap-4 scrollbar pr-3">
+					<main className="max-h-96 p-[2px] overflow-y-auto w-full mt-4 flex justify-center flex-row flex-wrap grid-cols-[repeat(2,_minmax(0,_6rem))] sm:grid-cols-[repeat(3,_minmax(0,_8rem))] gap-4 scrollbar pr-3">
 						{streamers.map((streamer) => (
 							<Streamer
 								key={streamer.twitchName}
@@ -72,7 +72,7 @@ export const Dialog = ({
 							/>
 						))}
 					</main>
-					<footer className="flex justify-between items-center mt-4 pb-4">
+					<footer className="flex justify-between items-center mt-4 pb-4 w-full">
 						<div className="space-x-2">
 							<button
 								className="p-1 rounded-lg hover:bg-zinc-900 transition-all"

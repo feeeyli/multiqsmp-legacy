@@ -103,6 +103,9 @@ const config: Config = {
 					"950": "#28312b",
 				},
 			},
+			screens: {
+				wb: "963px",
+			},
 		},
 		fontSize: {
 			xs: "0.5rem",
