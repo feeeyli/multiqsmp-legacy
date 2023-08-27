@@ -17,8 +17,10 @@ interface Props {
 
 export default async function Home({ params }: Props) {
 	const STREAMERS: Streamer[] = await fetch(
-		"https://gist.githubusercontent.com/lunafeyli/6ac07afdd349854e8f1c952cde95c75a/raw/daa0c56837587f8b9acb510b5c3e2247e702756c/qsmpstreamers.json"
-	).then((a) => a.json());
+		"https://api.github.com/gists/6ac07afdd349854e8f1c952cde95c75a"
+	)
+		.then((a) => a.json())
+		.then((a) => JSON.parse(a.files["qsmpstreamers.json"].content));
 
 	const streamers = STREAMERS.map((streamer) =>
 		streamer.twitchName.toLowerCase()
