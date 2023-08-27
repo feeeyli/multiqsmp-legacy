@@ -29,7 +29,7 @@ export const Streamer = ({ onClick, streamer, selected }: Props) => {
 				height={128}
 				className="pointer-events-none rounded-xl w-24 h-24 sm:w-32 sm:h-32 aspect-square"
 			/>
-			<div className="py-2 px-3 text-white sm:text-base text-sm break-normal text-left group-data-[selected=true]:text-cold-purple-500">
+			<div className="py-2 px-3 max-w-[24px] sm:max-w-[32px] text-white sm:text-base text-sm text-left group-data-[selected=true]:text-cold-purple-500">
 				{streamer.displayName}
 			</div>
 		</button>
