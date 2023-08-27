@@ -1,0 +1,10 @@
+{
+	"index": {
+		"changeStreamers": "Cambiar streamers"
+	},
+	"modal": {
+		"title": "¡¡¡Elige tus streamers!!!",
+		"watch": "Reloj",
+		"avatar": "Avatar de"
+	}
+}

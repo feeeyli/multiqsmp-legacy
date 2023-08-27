@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+	.scrollbar::-webkit-scrollbar {
+		@apply w-2 h-5;
+	}
+
+	.scrollbar::-webkit-scrollbar-track {
+		@apply rounded-full bg-[#444];
+	}
+
+	.scrollbar::-webkit-scrollbar-thumb {
+		@apply bg-cold-purple-500 rounded-full;
+	}
+
+	.scrollbar::-webkit-scrollbar-thumb:hover {
+		background: #c0a0b9;
+	}
+}

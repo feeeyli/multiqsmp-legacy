@@ -1,0 +1,10 @@
+{
+	"index": {
+		"changeStreamers": "Change Streamers"
+	},
+	"modal": {
+		"title": "Choose your streamers!!!",
+		"watch": "Watch",
+		"avatar": "Avatar of"
+	}
+}
