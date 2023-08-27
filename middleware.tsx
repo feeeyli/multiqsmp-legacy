@@ -7,6 +7,25 @@ export default createMiddleware({
 
 	// If this locale is matched, pathnames work without a prefix (e.g. `/about`)
 	defaultLocale: "pt",
+
+	domains: [
+		{
+			domain: "en.multiqsmp.vercel.app",
+			defaultLocale: "en",
+		},
+		{
+			domain: "pt.multiqsmp.vercel.app",
+			defaultLocale: "pt",
+		},
+		{
+			domain: "es.multiqsmp.vercel.app",
+			defaultLocale: "es",
+		},
+		{
+			domain: "fr.multiqsmp.vercel.app",
+			defaultLocale: "fr",
+		},
+	],
 });
 
 export const config = {
