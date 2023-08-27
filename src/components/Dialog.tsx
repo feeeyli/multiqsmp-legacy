@@ -1,6 +1,6 @@
 "use client";
 
-import STREAMERS from "@/streamers.json";
+// import STREAMERS from "@/streamers.json";
 
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import {
@@ -18,6 +18,7 @@ import { useRouter } from "next/navigation";
 export const Dialog = ({
 	locale,
 	streams,
+	streamers,
 }: {
 	locale: string;
 	streams?: string[];
@@ -60,7 +61,7 @@ export const Dialog = ({
 						</DialogPrimitive.Close>
 					</header>
 					<main className="max-h-96 p-[2px] overflow-y-auto mt-4 grid grid-cols-[repeat(3,_minmax(0,_8rem))] gap-4 scrollbar pr-3">
-						{STREAMERS.map((streamer) => (
+						{streamers.map((streamer) => (
 							<Streamer
 								key={streamer.twitchName}
 								streamer={streamer}
@@ -87,7 +88,7 @@ export const Dialog = ({
 								className="p-1 rounded-lg hover:bg-zinc-900 transition-all"
 								onClick={() =>
 									setSelectedStreamers(
-										STREAMERS.map(
+										streamers.map(
 											(streamer) => streamer.twitchName
 										)
 									)
