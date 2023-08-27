@@ -49,26 +49,22 @@ export default async function Home({ params }: Props) {
 	})();
 
 	return (
-		<main
-			className={
-				"h-screen max-h-screen bg-black text-white flex flex-wrap w-[100%]"
-			}
-		>
-			{/* <div className="w-full max-h-screen"> */}
-			{streams.map((stream, index) => (
-				<iframe
-					src={`https://player.twitch.tv/?channel=${stream}&parent=multiqsmp.vercel.app&muted=true`}
-					// height="720"
-					// width="1280"
-					key={index}
-					allowFullScreen
-					className="flex-grow"
-					style={{
-						width: `${100 / Math.floor(columns)}%`,
-					}}
-				/>
-			))}
-			{/* </div> */}
+		<main className={"h-screen max-h-screen bg-black text-white w-[100%]"}>
+			<div className="flex flex-wrap w-full h-full max-h-screen">
+				{streams.map((stream, index) => (
+					<iframe
+						src={`https://player.twitch.tv/?channel=${stream}&parent=multiqsmp.vercel.app&muted=true`}
+						// height="720"
+						// width="1280"
+						key={index}
+						allowFullScreen
+						className="flex-grow"
+						style={{
+							width: `${100 / Math.floor(columns)}%`,
+						}}
+					/>
+				))}
+			</div>
 			<Dialog
 				locale={params.locale}
 				streams={streams}

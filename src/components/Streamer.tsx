@@ -27,9 +27,9 @@ export const Streamer = ({ onClick, streamer, selected }: Props) => {
 				alt={t("avatar") + streamer.displayName}
 				width={128}
 				height={128}
-				className="pointer-events-none rounded-xl"
+				className="pointer-events-none rounded-xl w-24 h-24 sm:w-32 sm:h-32"
 			/>
-			<div className="py-2 px-3 text-white text-left group-data-[selected=true]:text-cold-purple-500">
+			<div className="py-2 px-3 text-white sm:text-base text-sm break-normal text-left group-data-[selected=true]:text-cold-purple-500">
 				{streamer.displayName}
 			</div>
 		</button>
