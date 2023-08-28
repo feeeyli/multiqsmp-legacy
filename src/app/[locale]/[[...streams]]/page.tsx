@@ -9,6 +9,8 @@ import { useTranslations } from "next-intl";
 import { Dialog } from "@/components/Dialog";
 import { useEffect } from "react";
 import { Streamer } from "@/components/Streamer";
+import { TwitchPlayer } from "react-twitch-embed";
+import { Player } from "@/components/Player";
 
 interface Props {
 	params: {
@@ -50,16 +52,22 @@ export default function Streams({ params }: Props) {
 		>
 			<div className="flex flex-wrap w-full h-full max-h-screen">
 				{streams.map((stream, index) => (
-					<iframe
-						src={`https://player.twitch.tv/?channel=${stream}&parent=multiqsmp.vercel.app&muted=true`}
-						// height="720"
-						// width="1280"
+					// <iframe
+					// 	src={`https://player.twitch.tv/?channel=${stream}&parent=multiqsmp.vercel.app&muted=true`}
+					// 	// height="720"
+					// 	// width="1280"
+					// 	key={index}
+					// 	allowFullScreen
+					// 	className="flex-grow"
+					// 	style={{
+					// 		width: `${100 / Math.floor(columns)}%`,
+					// 	}}
+					// />
+					<Player
+						channel={stream}
 						key={index}
-						allowFullScreen
-						className="flex-grow"
-						style={{
-							width: `${100 / Math.floor(columns)}%`,
-						}}
+						columns={columns}
+						id={index}
 					/>
 				))}
 				{streams.length === 0 && (
