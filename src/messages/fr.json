@@ -1,5 +1,8 @@
 {
 	"index": {
+		"noStreamers": "Il semble que vous n'ayez pas encore choisi de streamer.",
+		"instructionsPc": "Cliquez sur le bouton à droite et commencez à regarder!!!",
+		"instructionsMobile": "Cliquez sur le bouton ci-dessous et commencez à regarder!!!",
 		"changeStreamers": "Modifier les streamers"
 	},
 	"modal": {

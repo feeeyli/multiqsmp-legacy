@@ -18,4 +18,12 @@
 	.scrollbar::-webkit-scrollbar-thumb:hover {
 		@apply bg-cold-purple-400;
 	}
+
+	.diag-top {
+		clip-path: polygon(0 0, 0% 100%, 100% 0);
+	}
+
+	.diag-bottom {
+		clip-path: polygon(100% 100%, 0 100%, 100% 0);
+	}
 }

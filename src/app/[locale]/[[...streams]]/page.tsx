@@ -1,6 +1,8 @@
+"use client";
+
 import $ from "jquery";
 
-// import STREAMERS from "@/streamers.json";
+import STREAMERS from "@/streamers.json";
 
 import { useTranslations } from "next-intl";
 
@@ -15,12 +17,10 @@ interface Props {
 	};
 }
 
-export default async function Home({ params }: Props) {
-	const STREAMERS: Streamer[] = await fetch(
-		"https://api.github.com/gists/6ac07afdd349854e8f1c952cde95c75a"
-	)
-		.then((a) => a.json())
-		.then((a) => JSON.parse(a.files["qsmpstreamers.json"].content));
+export default function Streams({ params }: Props) {
+	// const STREAMERS: Streamer[] = (await import("@/streamers.json")).default;
+
+	const t = useTranslations("index");
 
 	const streamers = STREAMERS.map((streamer) =>
 		streamer.twitchName.toLowerCase()
@@ -31,14 +31,6 @@ export default async function Home({ params }: Props) {
 				streamers.includes(stream.toLowerCase())
 		  )
 		: [];
-
-	const grid = () => {
-		if (streams.length >= 2 && streams.length <= 6) return "grid-cols-2";
-		if (streams.length >= 7 && streams.length <= 12) return "grid-cols-3";
-		if (streams.length >= 13 && streams.length <= 20) return "grid-cols-4";
-		if (streams.length >= 21 && streams.length <= 30) return "grid-cols-6";
-		if (streams.length >= 31) return "grid-cols-7";
-	};
 
 	const columns = (() => {
 		if (streams.length >= 2 && streams.length <= 6) return 2;
@@ -51,7 +43,11 @@ export default async function Home({ params }: Props) {
 	})();
 
 	return (
-		<main className={"h-screen max-h-screen bg-black text-white w-[100%]"}>
+		<main
+			className={
+				"h-screen max-h-screen bg-cold-purple-950 text-white w-[100%]"
+			}
+		>
 			<div className="flex flex-wrap w-full h-full max-h-screen">
 				{streams.map((stream, index) => (
 					<iframe
@@ -66,6 +62,16 @@ export default async function Home({ params }: Props) {
 						}}
 					/>
 				))}
+				{streams.length === 0 && (
+					<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85%] max-w-sm">
+						<span className="sm:hidden block text-center">
+							{t("noStreamers")} {t("instructionsMobile")}
+						</span>
+						<span className="hidden sm:block text-center">
+							{t("noStreamers")} {t("instructionsPc")}
+						</span>
+					</div>
+				)}
 			</div>
 			<Dialog
 				locale={params.locale}
