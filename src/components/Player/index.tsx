@@ -19,7 +19,7 @@ export const Player = ({ channel, columns, id }: Props) => {
 
 	return (
 		<div
-			className="relative"
+			className="relative flex-grow"
 			style={{
 				width: `${100 / Math.floor(columns)}%`,
 			}}
