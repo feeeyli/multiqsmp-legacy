@@ -18,7 +18,7 @@ export default function Home() {
 					<h2 className="text-cold-purple-200">Bem-vindo</h2>
 					<h2 className="text-cold-purple-200">Bienvenido</h2>
 					<h2 className="text-cold-purple-200">Welcome</h2>
-					<h2 className="text-cold-purple-200">Accueillir</h2>
+					<h2 className="text-cold-purple-200">Bienvenu</h2>
 				</div>
 			</header>
 			<main className="mt-8">
