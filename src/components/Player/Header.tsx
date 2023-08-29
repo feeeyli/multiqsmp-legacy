@@ -43,7 +43,7 @@ export const Header = ({
 				{fullscreen && <ArrowsIn size={20} color="#fff" />}
 				{!fullscreen && <ArrowsOut size={20} color="#fff" />}
 			</button>
-			<button onClick={onChatSelect}>
+			<button onClick={onChatSelect} className="sm:inline-block hidden">
 				<Chat size={20} color="#fff" />
 			</button>
 		</header>
