@@ -56,7 +56,7 @@ export default function Streams({ params }: Props) {
 				"h-screen max-h-screen bg-cold-purple-950 text-white w-[100%] flex"
 			}
 		>
-			<div className="flex flex-wrap  h-full max-h-screen">
+			<div className="flex flex-wrap h-full max-h-screen pb-6">
 				{streams.map((stream, index) => (
 					<Player
 						channel={stream}
