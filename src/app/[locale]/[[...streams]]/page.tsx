@@ -1,16 +1,16 @@
 "use client";
 
-import $ from "jquery";
-
 import STREAMERS from "@/streamers.json";
 
 import { useTranslations } from "next-intl";
 
 import { Dialog } from "@/components/Dialog";
-import { useEffect } from "react";
 import { Streamer } from "@/components/Streamer";
-import { TwitchPlayer } from "react-twitch-embed";
+import { TwitchChat, TwitchPlayer } from "react-twitch-embed";
 import { Player } from "@/components/Player";
+import ChatContext, { ChatContextProvider } from "@/contexts/ChatContext";
+import { useContext, useRef } from "react";
+import { ChatRef, Chats } from "@/components/Chats";
 
 interface Props {
 	params: {
@@ -23,6 +23,8 @@ export default function Streams({ params }: Props) {
 	// const STREAMERS: Streamer[] = (await import("@/streamers.json")).default;
 
 	const t = useTranslations("index");
+
+	const chatsRef = useRef<ChatRef>(null);
 
 	const streamers = STREAMERS.map((streamer) =>
 		streamer.twitchName.toLowerCase()
@@ -44,30 +46,24 @@ export default function Streams({ params }: Props) {
 		return 1;
 	})();
 
+	const handleChatSelect = (streamer: string) => {
+		chatsRef.current!.chatSelect(streamer);
+	};
+
 	return (
 		<main
 			className={
-				"h-screen max-h-screen bg-cold-purple-950 text-white w-[100%]"
+				"h-screen max-h-screen bg-cold-purple-950 text-white w-[100%] flex"
 			}
 		>
-			<div className="flex flex-wrap w-full h-full max-h-screen">
+			<div className="flex flex-wrap  h-full max-h-screen">
 				{streams.map((stream, index) => (
-					// <iframe
-					// 	src={`https://player.twitch.tv/?channel=${stream}&parent=multiqsmp.vercel.app&muted=true`}
-					// 	// height="720"
-					// 	// width="1280"
-					// 	key={index}
-					// 	allowFullScreen
-					// 	className="flex-grow"
-					// 	style={{
-					// 		width: `${100 / Math.floor(columns)}%`,
-					// 	}}
-					// />
 					<Player
 						channel={stream}
 						key={index}
 						columns={columns}
 						id={index}
+						onChatSelect={handleChatSelect}
 					/>
 				))}
 				{streams.length === 0 && (
@@ -81,6 +77,7 @@ export default function Streams({ params }: Props) {
 					</div>
 				)}
 			</div>
+			<Chats ref={chatsRef} />
 			<Dialog
 				locale={params.locale}
 				streams={streams}

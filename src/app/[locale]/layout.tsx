@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
+import { ChatContextProvider } from "@/contexts/ChatContext";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400"] });
 
@@ -41,7 +42,7 @@ export default async function RootLayout({
 				}
 			>
 				<NextIntlClientProvider locale={locale} messages={messages}>
-					{children}
+					<ChatContextProvider>{children}</ChatContextProvider>
 				</NextIntlClientProvider>
 			</body>
 		</html>

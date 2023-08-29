@@ -1,6 +1,7 @@
 import {
 	ArrowsIn,
 	ArrowsOut,
+	Chat,
 	SpeakerHigh,
 	SpeakerX,
 } from "@phosphor-icons/react";
@@ -8,10 +9,15 @@ import { useState } from "react";
 
 interface Props {
 	onMuteChange: (mute: boolean) => void;
+	onChatSelect: () => void;
 	onFullscreenChange: (full: boolean) => void;
 }
 
-export const Header = ({ onMuteChange, onFullscreenChange }: Props) => {
+export const Header = ({
+	onMuteChange,
+	onFullscreenChange,
+	onChatSelect,
+}: Props) => {
 	const [muted, setMuted] = useState(true);
 	const [fullscreen, setFullscreen] = useState(false);
 
@@ -36,6 +42,9 @@ export const Header = ({ onMuteChange, onFullscreenChange }: Props) => {
 			<button onClick={handleFullscreenChange}>
 				{fullscreen && <ArrowsIn size={20} color="#fff" />}
 				{!fullscreen && <ArrowsOut size={20} color="#fff" />}
+			</button>
+			<button onClick={onChatSelect}>
+				<Chat size={20} color="#fff" />
 			</button>
 		</header>
 	);

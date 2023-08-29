@@ -1,4 +1,4 @@
-import { CSSProperties, useRef, useState } from "react";
+import { CSSProperties, useContext, useRef, useState } from "react";
 import {
 	TwitchEmbed,
 	TwitchEmbedInstance,
@@ -11,9 +11,10 @@ interface Props {
 	channel: string;
 	columns: number;
 	id: number;
+	onChatSelect: (streamer: string) => void;
 }
 
-export const Player = ({ channel, columns, id }: Props) => {
+export const Player = ({ channel, columns, id, onChatSelect }: Props) => {
 	const playerRef = useRef<TwitchEmbedInstance>();
 
 	const containerRef = useRef<HTMLDivElement>(null);
@@ -43,6 +44,7 @@ export const Player = ({ channel, columns, id }: Props) => {
 			<Header
 				onMuteChange={(mute) => playerRef.current?.setMuted(mute)}
 				onFullscreenChange={(full) => handleFullscreenChange(full)}
+				onChatSelect={() => onChatSelect(channel)}
 			/>
 			<TwitchEmbed
 				muted
