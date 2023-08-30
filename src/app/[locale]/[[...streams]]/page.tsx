@@ -9,8 +9,9 @@ import { Streamer } from "@/components/Streamer";
 import { TwitchChat, TwitchPlayer } from "react-twitch-embed";
 import { Player } from "@/components/Player";
 import ChatContext, { ChatContextProvider } from "@/contexts/ChatContext";
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
 import { ChatRef, Chats } from "@/components/Chats";
+import { useList } from "@/utils/useList";
 
 interface Props {
 	params: {
@@ -30,11 +31,13 @@ export default function Streams({ params }: Props) {
 		streamer.twitchName.toLowerCase()
 	);
 
-	const streams = params.streams
-		? params.streams.filter((stream) =>
-				streamers.includes(stream.toLowerCase())
-		  )
-		: [];
+	const [streams, { moveItem }] = useList(
+		params.streams
+			? params.streams.filter((stream) =>
+					streamers.includes(stream.toLowerCase())
+			  )
+			: []
+	);
 
 	const columns = (() => {
 		if (streams.length >= 2 && streams.length <= 6) return 2;
@@ -47,16 +50,16 @@ export default function Streams({ params }: Props) {
 	})();
 
 	const handleChatSelect = (streamer: string) => {
-		chatsRef.current!.chatSelect(streamer);
+		return chatsRef.current!.chatSelect(streamer);
 	};
 
 	return (
 		<main
 			className={
-				"h-screen max-h-screen bg-cold-purple-950 text-white w-[100%] flex"
+				"h-screen max-h-screen bg-cold-purple-950 text-white w-[100%] flex pb-6"
 			}
 		>
-			<div className="flex flex-wrap h-full max-h-screen pb-6">
+			<div className="flex flex-wrap h-full max-h-screen flex-1">
 				{streams.map((stream, index) => (
 					<Player
 						channel={stream}
@@ -64,6 +67,9 @@ export default function Streams({ params }: Props) {
 						columns={columns}
 						id={index}
 						onChatSelect={handleChatSelect}
+						onMovePlayer={(direction: "up" | "down") =>
+							moveItem(index, direction)
+						}
 					/>
 				))}
 				{streams.length === 0 && (

@@ -11,10 +11,28 @@ interface Props {
 	channel: string;
 	columns: number;
 	id: number;
-	onChatSelect: (streamer: string) => void;
+	onChatSelect: (streamer: string) => boolean;
+	onMovePlayer: (direction: "up" | "down") => void;
 }
 
-export const Player = ({ channel, columns, id, onChatSelect }: Props) => {
+function uuidv4() {
+	return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+		/[xy]/g,
+		function (c) {
+			var r = (Math.random() * 16) | 0,
+				v = c == "x" ? r : (r & 0x3) | 0x8;
+			return v.toString(16);
+		}
+	);
+}
+
+export const Player = ({
+	channel,
+	columns,
+	id,
+	onChatSelect,
+	onMovePlayer,
+}: Props) => {
 	const playerRef = useRef<TwitchEmbedInstance>();
 
 	const containerRef = useRef<HTMLDivElement>(null);
@@ -45,13 +63,16 @@ export const Player = ({ channel, columns, id, onChatSelect }: Props) => {
 				onMuteChange={(mute) => playerRef.current?.setMuted(mute)}
 				onFullscreenChange={(full) => handleFullscreenChange(full)}
 				onChatSelect={() => onChatSelect(channel)}
+				onMovePlayer={(direction: "up" | "down") =>
+					onMovePlayer(direction)
+				}
 			/>
 			<TwitchEmbed
 				muted
 				withChat={false}
 				channel={channel}
 				className="!h-full !w-full"
-				id={String(id)}
+				id={uuidv4()}
 				onVideoReady={(obj: TwitchEmbedInstance) =>
 					(playerRef.current = obj)
 				}
