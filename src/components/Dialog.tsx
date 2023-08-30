@@ -43,7 +43,7 @@ export const Dialog = ({
 	return (
 		<DialogPrimitive.Root>
 			<DialogPrimitive.Trigger asChild>
-				<button className="sm:animate-changeButtonStart bg-cold-purple-500 px-3 py-1 rounded-tl-lg absolute mx-auto h-fit bottom-0 right-0 transition-transform">
+				<button className="bg-cold-purple-500 px-3 py-1 rounded-tl-lg absolute mx-auto h-fit bottom-0 right-0 transition-transform">
 					<Swap size={28} color="#fff" weight="bold" />
 				</button>
 			</DialogPrimitive.Trigger>
