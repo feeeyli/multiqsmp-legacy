@@ -37,11 +37,7 @@ export default async function RootLayout({
 
 	return (
 		<html lang={locale}>
-			<body
-				className={
-					poppins.className + " min-h-screen h-full overflow-x-hidden"
-				}
-			>
+			<body className="min-h-screen h-full overflow-x-hidden">
 				<NextIntlClientProvider locale={locale} messages={messages}>
 					<ChatContextProvider>
 						<PlayersContextProvider>

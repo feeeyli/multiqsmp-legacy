@@ -10,6 +10,7 @@ import { getColumns } from "@/utils/getColumns";
 import { useContext, useEffect } from "react";
 import { PlayersContext } from "@/contexts/PlayersContext";
 import { OrganizeDialog } from "@/components/OrganizeDialog";
+import Link from "next/link";
 
 interface Props {
 	params: {
@@ -25,7 +26,7 @@ export default function Streams({ params }: Props) {
 
 	useEffect(() => {
 		updateList(channels);
-	});
+	}, []);
 
 	const t = useTranslations("index");
 
