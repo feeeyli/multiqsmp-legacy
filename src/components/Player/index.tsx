@@ -52,10 +52,10 @@ const PlayerComponent = ({ channel, columns, id }: Props) => {
 		>
 			<header
 				data-opened={headerMenuOpened}
-				className="group/menu absolute top-0 left-0 rounded-br-md bg-[#302a3963] flex items-center w-9 h-7 overflow-hidden data-[opened=true]:w-36 transition-all"
+				className="group/menu absolute top-0 left-0 rounded-br-md bg-[#302a3963] flex items-center w-9 h-7 overflow-hidden data-[opened=true]:w-[6.25rem] sm:data-[opened=true]:w-[8.25rem] transition-all"
 			>
 				<button
-					className="px-2 py-1"
+					className="px-2 py-1 hover:bg-[#302a39a1] focus:bg-[#302a39a1] h-full outline-none"
 					onClick={() => setHeaderMenuOpened((old) => !old)}
 				>
 					<ChevronLeftIcon
@@ -63,8 +63,12 @@ const PlayerComponent = ({ channel, columns, id }: Props) => {
 						color="#fff"
 					/>
 				</button>
-				<div className="min-w-[6rem]">
-					<button className="px-2 py-1" onClick={handleMutedToggle}>
+				<div className="min-w-[6rem] h-full">
+					<button
+						tabIndex={headerMenuOpened ? 0 : -1}
+						className="px-2 py-1 focus:bg-[#302a39a1] hover:bg-[#302a39a1] h-full outline-none"
+						onClick={handleMutedToggle}
+					>
 						{muted && (
 							<SpeakerOffIcon className="h-4 w-4" color="#fff" />
 						)}
@@ -73,7 +77,8 @@ const PlayerComponent = ({ channel, columns, id }: Props) => {
 						)}
 					</button>
 					<button
-						className="px-2 py-1"
+						tabIndex={headerMenuOpened ? 0 : -1}
+						className="px-2 py-1 focus:bg-[#302a39a1] hover:bg-[#302a39a1] h-full outline-none"
 						onClick={() => setFullScreen((old) => !old)}
 					>
 						{fullScreen && (
@@ -96,7 +101,8 @@ const PlayerComponent = ({ channel, columns, id }: Props) => {
 
 							toggleChat(channel, -1);
 						}}
-						className="sm:inline-block hidden px-2 py-1"
+						tabIndex={headerMenuOpened ? 0 : -1}
+						className="sm:inline-block hidden px-2 py-1 focus:bg-[#302a39a1] hover:bg-[#302a39a1] h-full outline-none"
 					>
 						<ChatBubbleIcon
 							color="#fff"
