@@ -72,7 +72,7 @@ export const OrganizeDialog = ({ locale }: { locale: string }) => {
 								))}
 						</ul>
 					</section>
-					<section className="flex flex-col items-center gap-2 flex-grow max-w-1/2">
+					<section className="hidden sm:flex flex-col items-center gap-2 flex-grow max-w-1/2">
 						<h2 className="text-cold-purple-500">Chats</h2>
 						<ul>
 							{chats.length === 0 && <li>{t("noChat")}</li>}
