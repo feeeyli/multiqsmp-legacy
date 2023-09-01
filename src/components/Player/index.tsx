@@ -1,25 +1,14 @@
 import { CSSProperties, memo, useContext, useRef, useState } from "react";
 import { Embed, EmbedRefProps } from "./Embed";
 import { ChatContext } from "@/contexts/ChatContext";
-import {
-	ArrowsIn,
-	ArrowsOut,
-	Chat,
-	SpeakerHigh,
-	SpeakerX,
-} from "@phosphor-icons/react";
 
 import {
-	ChevronRightIcon,
 	ChevronLeftIcon,
 	ChatBubbleIcon,
 	EnterFullScreenIcon,
 	ExitFullScreenIcon,
 	SpeakerLoudIcon,
 	SpeakerOffIcon,
-	DotsVerticalIcon,
-	CaretRightIcon,
-	CaretLeftIcon,
 } from "@radix-ui/react-icons";
 
 interface Props {

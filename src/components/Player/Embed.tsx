@@ -1,13 +1,4 @@
-import ChatContext from "@/contexts/ChatContext";
-import {
-	MutableRefObject,
-	forwardRef,
-	memo,
-	useContext,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-} from "react";
+import { forwardRef, memo, useImperativeHandle, useRef } from "react";
 import {
 	TwitchEmbed,
 	TwitchEmbedInstance,
@@ -22,10 +13,6 @@ export interface EmbedRefProps {
 
 const EmbedComponent = forwardRef(function Embed({ ...props }: Props, ref) {
 	const embedRef = useRef<TwitchEmbedInstance>();
-
-	// useEffect(() => {
-	// 	console.log("AAAAA");
-	// }, [count]);
 
 	useImperativeHandle(ref, () => {
 		return {

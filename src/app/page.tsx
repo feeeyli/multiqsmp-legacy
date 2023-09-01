@@ -1,13 +1,5 @@
-// const LangSelector = ({ onClick }: { onClick: () => void, flag }) => {
-//   return (
-//     <a>
-
 import Image from "next/image";
 import Link from "next/link";
-
-//     </a>
-//   )
-// }
 
 export default function Home() {
 	return (

@@ -14,7 +14,7 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 export const Streamer = ({ onClick, streamer, selected }: Props) => {
-	const t = useTranslations("modal");
+	const t = useTranslations("modal.streamers");
 
 	return (
 		<button
