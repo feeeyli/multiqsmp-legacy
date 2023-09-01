@@ -1,17 +1,15 @@
 "use client";
 
-import STREAMERS from "@/streamers.json";
-
-import { useTranslations } from "next-intl";
-
-import { Dialog } from "@/components/Dialog";
-import { Streamer } from "@/components/Streamer";
-import { TwitchChat, TwitchPlayer } from "react-twitch-embed";
+import { StreamersDialog } from "@/components/StreamersDialog";
 import { Player } from "@/components/Player";
-import ChatContext, { ChatContextProvider } from "@/contexts/ChatContext";
-import { useContext, useRef, useState } from "react";
-import { ChatRef, Chats } from "@/components/Chats";
-import { useList } from "@/utils/useList";
+import { Chats } from "@/components/Chats";
+
+import { parseChannels } from "@/utils/parseChannels";
+import { useTranslations } from "next-intl";
+import { getColumns } from "@/utils/getColumns";
+import { useContext, useEffect } from "react";
+import { PlayersContext } from "@/contexts/PlayersContext";
+import { OrganizeDialog } from "@/components/OrganizeDialog";
 
 interface Props {
 	params: {
@@ -21,58 +19,34 @@ interface Props {
 }
 
 export default function Streams({ params }: Props) {
-	// const STREAMERS: Streamer[] = (await import("@/streamers.json")).default;
+	const channels = parseChannels(params.streams || []);
+
+	const [, { updateList }] = useContext(PlayersContext);
+
+	useEffect(() => {
+		updateList(channels);
+	});
 
 	const t = useTranslations("index");
 
-	const chatsRef = useRef<ChatRef>(null);
-
-	const streamers = STREAMERS.map((streamer) =>
-		streamer.twitchName.toLowerCase()
-	);
-
-	const [streams, { moveItem }] = useList(
-		params.streams
-			? params.streams.filter((stream) =>
-					streamers.includes(stream.toLowerCase())
-			  )
-			: []
-	);
-
-	const columns = (() => {
-		if (streams.length >= 2 && streams.length <= 6) return 2;
-		if (streams.length >= 7 && streams.length <= 12) return 3;
-		if (streams.length >= 13 && streams.length <= 20) return 4;
-		if (streams.length >= 21 && streams.length <= 30) return 6;
-		if (streams.length >= 31) return 7;
-
-		return 1;
-	})();
-
-	const handleChatSelect = (streamer: string) => {
-		return chatsRef.current!.chatSelect(streamer);
-	};
+	const columns = getColumns(channels.length);
 
 	return (
 		<main
 			className={
-				"h-screen max-h-screen bg-cold-purple-950 text-white w-[100%] flex pb-6"
+				"h-screen max-h-screen bg-cold-purple-950 text-white w-[100%] flex pb-6 relative"
 			}
 		>
 			<div className="flex flex-wrap h-full max-h-screen flex-1">
-				{streams.map((stream, index) => (
+				{channels.map((channel) => (
 					<Player
-						channel={stream}
-						key={index}
+						channel={channel}
+						key={channel}
 						columns={columns}
-						id={index}
-						onChatSelect={handleChatSelect}
-						onMovePlayer={(direction: "up" | "down") =>
-							moveItem(index, direction)
-						}
+						id={channel}
 					/>
 				))}
-				{streams.length === 0 && (
+				{channels.length === 0 && (
 					<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85%] max-w-sm">
 						<span className="sm:hidden block text-center">
 							{t("noStreamers")} {t("instructionsMobile")}
@@ -83,12 +57,9 @@ export default function Streams({ params }: Props) {
 					</div>
 				)}
 			</div>
-			<Chats ref={chatsRef} />
-			<Dialog
-				locale={params.locale}
-				streams={streams}
-				streamers={STREAMERS}
-			/>
+			<Chats />
+			<StreamersDialog locale={params.locale} channels={channels} />
+			<OrganizeDialog locale={params.locale} />
 		</main>
 	);
 }

@@ -1,19 +1,22 @@
 import { Dispatch, SetStateAction, useState } from "react";
 
-type ReturnProps<T> = [
+export type ListReturnProps<T> = [
 	T[],
 	{
 		addItem: (item: T, index: number) => void;
 		removeItem: (index: number) => void;
 		moveItem: (index: number, direction: "up" | "down") => void;
 		updateList: Dispatch<SetStateAction<T[]>>;
+		toggleItem: (item: T, index: number) => void;
 	}
 ];
 
-export function useList<T>(initial: T[] = []): ReturnProps<T> {
+export function useList<T>(initial: T[] = []): ListReturnProps<T> {
 	const [list, setList] = useState<T[]>(initial);
 
-	const addItem = (item: T, index: number) => {
+	function addItem(item: T, index: number) {
+		if (list.includes(item)) return;
+
 		if (index === -1) {
 			setList((old) => [...old, item]);
 		} else {
@@ -25,9 +28,9 @@ export function useList<T>(initial: T[] = []): ReturnProps<T> {
 				return [...beforeIndex, item, ...afterIndex];
 			});
 		}
-	};
+	}
 
-	const removeItem = (index: number) => {
+	function removeItem(index: number) {
 		if (index === -1) {
 			setList((old) => old.slice(0, -1));
 		} else {
@@ -39,9 +42,9 @@ export function useList<T>(initial: T[] = []): ReturnProps<T> {
 				return [...beforeIndex, ...afterIndex];
 			});
 		}
-	};
+	}
 
-	const moveItem = (index: number, direction: "up" | "down") => {
+	function moveItem(index: number, direction: "up" | "down") {
 		if (
 			(index <= 0 && direction === "down") ||
 			(index >= list.length && direction === "up")
@@ -79,7 +82,18 @@ export function useList<T>(initial: T[] = []): ReturnProps<T> {
 				return result;
 			});
 		}
-	};
+	}
 
-	return [list, { addItem, removeItem, moveItem, updateList: setList }];
+	function toggleItem(item: T, index: number) {
+		if (list.includes(item)) {
+			removeItem(list.indexOf(item));
+		} else {
+			addItem(item, index);
+		}
+	}
+
+	return [
+		list,
+		{ addItem, removeItem, moveItem, updateList: setList, toggleItem },
+	];
 }

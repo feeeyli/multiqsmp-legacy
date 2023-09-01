@@ -3,7 +3,7 @@
 import { ListReturnProps, useList } from "@/utils/useList";
 import React, { createContext } from "react";
 
-export const ChatContext = createContext<ListReturnProps<string>>([
+export const PlayersContext = createContext<ListReturnProps<string>>([
 	[],
 	{
 		addItem() {},
@@ -14,16 +14,16 @@ export const ChatContext = createContext<ListReturnProps<string>>([
 	},
 ]);
 
-export const ChatContextProvider = ({
+export const PlayersContextProvider = ({
 	children,
 }: {
 	children: React.ReactNode;
 }) => {
-	const [chatList, chatListActions] = useList<string>([]);
+	const [playersList, playersListActions] = useList<string>([]);
 
 	return (
-		<ChatContext.Provider value={[chatList, chatListActions]}>
+		<PlayersContext.Provider value={[playersList, playersListActions]}>
 			{children}
-		</ChatContext.Provider>
+		</PlayersContext.Provider>
 	);
 };

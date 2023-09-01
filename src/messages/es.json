@@ -6,8 +6,16 @@
 		"changeStreamers": "Cambiar streamers"
 	},
 	"modal": {
-		"title": "¡¡¡Elige tus streamers!!!",
-		"watch": "Reloj",
-		"avatar": "Avatar de"
+		"streamers": {
+			"title": "¡¡¡Elige tus streamers!!!",
+			"watch": "Reloj",
+			"avatar": "Avatar de"
+		},
+		"organize": {
+			"title": "Reordenar tus directos o chats.",
+			"watch": "Reloj",
+			"noChat": "Ningún chat seleccionado.",
+			"noStreamer": "Ningún streamer seleccionado."
+		}
 	}
 }

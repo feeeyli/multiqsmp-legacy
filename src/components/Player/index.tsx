@@ -1,82 +1,125 @@
-import { CSSProperties, useContext, useRef, useState } from "react";
+import { CSSProperties, memo, useContext, useRef, useState } from "react";
+import { Embed, EmbedRefProps } from "./Embed";
+import { ChatContext } from "@/contexts/ChatContext";
 import {
-	TwitchEmbed,
-	TwitchEmbedInstance,
-	TwitchPlayer,
-	TwitchPlayerInstance,
-} from "react-twitch-embed";
-import { Header } from "./Header";
+	ArrowsIn,
+	ArrowsOut,
+	Chat,
+	SpeakerHigh,
+	SpeakerX,
+} from "@phosphor-icons/react";
+
+import {
+	ChevronRightIcon,
+	ChevronLeftIcon,
+	ChatBubbleIcon,
+	EnterFullScreenIcon,
+	ExitFullScreenIcon,
+	SpeakerLoudIcon,
+	SpeakerOffIcon,
+	DotsVerticalIcon,
+	CaretRightIcon,
+	CaretLeftIcon,
+} from "@radix-ui/react-icons";
 
 interface Props {
 	channel: string;
 	columns: number;
-	id: number;
-	onChatSelect: (streamer: string) => boolean;
-	onMovePlayer: (direction: "up" | "down") => void;
+	id: string;
 }
 
-function uuidv4() {
-	return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
-		/[xy]/g,
-		function (c) {
-			var r = (Math.random() * 16) | 0,
-				v = c == "x" ? r : (r & 0x3) | 0x8;
-			return v.toString(16);
-		}
-	);
-}
+const PlayerComponent = ({ channel, columns, id }: Props) => {
+	const [chatlist, { toggleItem: toggleChat }] = useContext(ChatContext);
+	const [muted, setMuted] = useState(true);
+	const [fullScreen, setFullScreen] = useState(false);
+	const [headerMenuOpened, setHeaderMenuOpened] = useState(false);
 
-export const Player = ({
-	channel,
-	columns,
-	id,
-	onChatSelect,
-	onMovePlayer,
-}: Props) => {
-	const playerRef = useRef<TwitchEmbedInstance>();
-
-	const containerRef = useRef<HTMLDivElement>(null);
-
-	let style: CSSProperties = {
+	const normalScreenStyle: CSSProperties = {
 		width: `${100 / Math.floor(columns)}%`,
 		position: "relative",
-		inset: 0,
+		zIndex: 0,
 	};
 
-	const handleFullscreenChange = (full: boolean) => {
-		if (!containerRef.current) return;
-
-		if (full) {
-			containerRef.current.style.width = "auto";
-			containerRef.current.style.position = "absolute";
-			containerRef.current.style.zIndex = "100";
-		} else {
-			containerRef.current.style.width = `${100 / Math.floor(columns)}%`;
-			containerRef.current.style.position = "relative";
-			containerRef.current.style.zIndex = "0";
-		}
+	const fullScreenStyle: CSSProperties = {
+		width: "auto",
+		position: "absolute",
+		zIndex: 100,
 	};
+
+	const embedRef = useRef<EmbedRefProps>();
+
+	const handleMutedToggle = () => {
+		embedRef.current?.setMuted(!muted);
+
+		setMuted(!muted);
+	};
+
+	const channelSelected = chatlist.includes(channel);
 
 	return (
-		<div className="relative flex-grow" style={style} ref={containerRef}>
-			<Header
-				onMuteChange={(mute) => playerRef.current?.setMuted(mute)}
-				onFullscreenChange={(full) => handleFullscreenChange(full)}
-				onChatSelect={() => onChatSelect(channel)}
-				onMovePlayer={(direction: "up" | "down") =>
-					onMovePlayer(direction)
-				}
-			/>
-			<TwitchEmbed
-				muted
-				withChat={false}
-				channel={channel}
-				className="!h-full !w-full"
-				id={uuidv4()}
-				onVideoReady={(obj: TwitchEmbedInstance) =>
-					(playerRef.current = obj)
-				}
-			/>
+		<div
+			className="relative flex-grow inset-0"
+			style={fullScreen ? fullScreenStyle : normalScreenStyle}
+		>
+			<header
+				data-opened={headerMenuOpened}
+				className="group/menu absolute top-0 left-0 rounded-br-md bg-[#302a3963] flex items-center w-9 h-7 overflow-hidden data-[opened=true]:w-36 transition-all"
+			>
+				<button
+					className="px-2 py-1"
+					onClick={() => setHeaderMenuOpened((old) => !old)}
+				>
+					<ChevronLeftIcon
+						className="h-5 w-5 group-data-[opened=true]/menu:rotate-180 transition-all"
+						color="#fff"
+					/>
+				</button>
+				<div className="min-w-[6rem]">
+					<button className="px-2 py-1" onClick={handleMutedToggle}>
+						{muted && (
+							<SpeakerOffIcon className="h-4 w-4" color="#fff" />
+						)}
+						{!muted && (
+							<SpeakerLoudIcon className="h-4 w-4" color="#fff" />
+						)}
+					</button>
+					<button
+						className="px-2 py-1"
+						onClick={() => setFullScreen((old) => !old)}
+					>
+						{fullScreen && (
+							<EnterFullScreenIcon
+								className="h-4 w-4"
+								color="#fff"
+							/>
+						)}
+						{!fullScreen && (
+							<ExitFullScreenIcon
+								className="h-4 w-4"
+								color="#fff"
+							/>
+						)}
+					</button>
+					<button
+						onClick={() => {
+							if (chatlist.length >= 4 && !channelSelected)
+								return;
+
+							toggleChat(channel, -1);
+						}}
+						className="sm:inline-block hidden px-2 py-1"
+					>
+						<ChatBubbleIcon
+							color="#fff"
+							data-opened={channelSelected}
+							className="opacity-50 data-[opened=true]:opacity-100 h-4 w-4"
+						/>
+					</button>
+				</div>
+			</header>
+			<Embed channel={channel} id={id} ref={embedRef} />
 		</div>
 	);
 };
+
+export const Player = memo(PlayerComponent);

@@ -6,8 +6,16 @@
 		"changeStreamers": "Trocar Streamers"
 	},
 	"modal": {
-		"title": "Escolha seus streamers!!!",
-		"watch": "Assistir",
-		"avatar": "Avatar de"
+		"streamers": {
+			"title": "Escolha seus streamers!!!",
+			"watch": "Assistir",
+			"avatar": "Avatar de"
+		},
+		"organize": {
+			"title": "Reorganize suas lives ou chats.",
+			"watch": "Assistir",
+			"noChat": "Nenhum chat selecionado.",
+			"noStreamer": "Nenhum streamer selecionado."
+		}
 	}
 }

@@ -136,6 +136,9 @@ const config: Config = {
 				changeButtonStart:
 					"changeButtonStart 500ms cubic-bezier(0.16, 1, 0.3, 1) 5s backwards",
 			},
+			fontFamily: {
+				sans: ["Poppins", "sans-serif"],
+			},
 		},
 		fontSize: {
 			xs: "0.5rem",

@@ -1,4 +1,4 @@
-export type Streamer = {
+export type StreamerType = {
 	twitchName: string;
 	displayName: string;
 	avatarUrl: string;
@@ -6,7 +6,7 @@ export type Streamer = {
 
 interface Props {
 	onClick?: (streamer: string) => void;
-	streamer: Streamer;
+	streamer: StreamerType;
 	selected: boolean;
 }
 
