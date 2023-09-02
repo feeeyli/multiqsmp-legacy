@@ -57,7 +57,7 @@ export default function Streams({ params }: Props) {
 									key={channel}
 									columns={columns}
 									id={channel}
-									isYoutubeStream={/\d/.test(
+									isYoutubeStream={/^U/.test(
 										getChannel(channel)
 									)}
 								/>
