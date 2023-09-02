@@ -92,7 +92,7 @@ export const Streamer = ({
 					</Tooltip.Portal>
 				</Tooltip.Root>
 			)}
-			<div className="py-2 px-3 max-w-[24px] sm:max-w-[32px] text-white sm:text-base text-sm text-left group-data-[selected=true]:text-cold-purple-500">
+			<div className="group-data-[online=false]:opacity-50 py-2 px-3 max-w-[24px] sm:max-w-[32px] text-white sm:text-base text-sm text-left group-data-[selected=true]:text-cold-purple-500">
 				{streamer.displayName}
 			</div>
 		</button>
