@@ -9,7 +9,8 @@
 		"streamers": {
 			"title": "Choose your streamers!!!",
 			"watch": "Watch",
-			"avatar": "Avatar of"
+			"avatar": "Avatar of",
+			"noPlaying": "This streamer may not be playing QSMP."
 		},
 		"organize": {
 			"title": "Reorder your lives or chats.",

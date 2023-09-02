@@ -9,7 +9,8 @@
 		"streamers": {
 			"title": "Choisissez vos streamers!",
 			"watch": "Regarder",
-			"avatar": "Avatar de"
+			"avatar": "Avatar de",
+			"noPlaying": "Ce streamer ne joue peut-être pas le QSMP."
 		},
 		"organize": {
 			"title": "Réorganisez vos lives ou vos chats.",

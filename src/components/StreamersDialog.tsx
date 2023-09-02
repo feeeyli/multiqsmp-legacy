@@ -9,6 +9,8 @@ import { STREAMERS } from "@/streamers";
 import Link from "next/link";
 import { Dialog } from "./Dialog";
 import { ArrowRightIcon, UpdateIcon } from "@radix-ui/react-icons";
+import { useEffect, useState } from "react";
+import { StreamType } from "@/@types/Stream";
 
 export const StreamersDialog = ({
 	locale,
@@ -18,6 +20,43 @@ export const StreamersDialog = ({
 	channels: string[];
 }) => {
 	const t = useTranslations("modal.streamers");
+
+	const [onlineStreamers, setOnlineStreamers] = useState<
+		{ twitchName: string; isPlayingQsmp: boolean }[]
+	>([]);
+
+	useEffect(() => {
+		(async () => {
+			const twitchStreamers = STREAMERS.filter(
+				(streamer) =>
+					!["willyrex", "vegetta777"].includes(streamer.twitchName)
+			)
+				.map((streamer) => `user_login=${streamer.twitchName}`)
+				.join("&");
+
+			const response = await fetch(
+				"https://api.twitch.tv/helix/streams?" + twitchStreamers,
+				{
+					headers: {
+						Authorization: "Bearer i6889ycv4g9aw5mabc1ozozpelpkwu",
+						"Client-Id": "iriodovqpouhcqrdy52cy3b95sv69h",
+					},
+				}
+			);
+
+			const data: { data: StreamType[] } = await response.json();
+
+			setOnlineStreamers(
+				data.data.map((stream) => ({
+					twitchName: stream.user_login,
+					isPlayingQsmp:
+						/(qsmp)|(minecraft)/i.test(
+							stream.tags?.join(",") || ""
+						) || stream.game_name === "Minecraft",
+				}))
+			);
+		})();
+	}, []);
 
 	const [
 		selectedStreamers,
@@ -39,18 +78,31 @@ export const StreamersDialog = ({
 			<Dialog.Content>
 				<Dialog.Header>{t("title")}</Dialog.Header>
 				<Dialog.Main>
-					{STREAMERS.map((streamer) => (
-						<Streamer
-							key={streamer.twitchName}
-							streamer={streamer}
-							onClick={() =>
-								toggleSelectedStreamer(streamer.twitchName, -1)
-							}
-							selected={selectedStreamers.includes(
-								streamer.twitchName
-							)}
-						/>
-					))}
+					{STREAMERS.map((streamer) => {
+						const actualStream = onlineStreamers.find(
+							(online) =>
+								online.twitchName.toLocaleLowerCase() ===
+								streamer.twitchName.toLocaleLowerCase()
+						);
+
+						return (
+							<Streamer
+								key={streamer.twitchName}
+								streamer={streamer}
+								onClick={() =>
+									toggleSelectedStreamer(
+										streamer.twitchName,
+										-1
+									)
+								}
+								selected={selectedStreamers.includes(
+									streamer.twitchName
+								)}
+								isOnline={!!actualStream}
+								isPlayingQsmp={!!actualStream?.isPlayingQsmp}
+							/>
+						);
+					})}
 				</Dialog.Main>
 				<Dialog.Footer className="justify-between">
 					<div className="space-x-2">

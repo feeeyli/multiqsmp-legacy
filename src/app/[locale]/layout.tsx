@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { ChatContextProvider } from "@/contexts/ChatContext";
 import { PlayersContextProvider } from "@/contexts/PlayersContext";
+import { TooltipProvider } from "@radix-ui/react-tooltip";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400"] });
 
