@@ -7,7 +7,7 @@ import { Chats } from "@/components/Chats";
 import { parseChannels } from "@/utils/parseChannels";
 import { useTranslations } from "next-intl";
 import { getColumns } from "@/utils/getColumns";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { PlayersContext } from "@/contexts/PlayersContext";
 import { OrganizeDialog } from "@/components/OrganizeDialog";
 import { getChannel } from "@/utils/getStreamUrl";
@@ -26,6 +26,8 @@ interface Props {
 
 export default function Streams({ params }: Props) {
 	const channels = parseChannels(params.streams || []);
+
+	const [resizing, setResizing] = useState(false);
 
 	const [, { updateList }] = useContext(PlayersContext);
 	const [chatList] = useContext(ChatContext);
@@ -49,8 +51,11 @@ export default function Streams({ params }: Props) {
 			>
 				{isDesktop}
 				<PanelGroup direction={isDesktop ? "horizontal" : "vertical"}>
-					<Panel minSize={isDesktop ? 50 : 35} defaultSize={100}>
-						<div className="flex flex-wrap h-full max-h-screen flex-1">
+					<Panel minSize={35} defaultSize={100}>
+						<div
+							data-resizing={resizing}
+							className="flex flex-wrap h-full max-h-screen flex-1 data-[resizing=true]:pointer-events-none"
+						>
 							{channels.map((channel) => (
 								<Player
 									channel={channel}
@@ -77,14 +82,19 @@ export default function Streams({ params }: Props) {
 					</Panel>
 					{chatList.length > 0 && (
 						<>
-							<PanelResizeHandle className="p-2 before:block relative before:bg-cold-purple-300 before:opacity-50 hover:before:opacity-70 active:before:opacity-100 before:absolute before:inset-1.5 before:rounded-full" />
+							<PanelResizeHandle
+								onDragging={(dragging) => setResizing(dragging)}
+								className="p-2 before:block relative before:bg-cold-purple-300 before:opacity-50 hover:before:opacity-70 active:before:opacity-100 before:absolute before:inset-1.5 before:rounded-full"
+							/>
 							<Panel
 								minSize={20}
 								defaultSize={35}
 								collapsedSize={0}
 								collapsible
+								data-resizing={resizing}
+								className="data-[resizing=true]:pointer-events-none"
 							>
-								<Chats />
+								<Chats resizing={resizing} />
 							</Panel>
 						</>
 					)}
