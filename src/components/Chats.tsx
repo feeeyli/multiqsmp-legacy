@@ -2,11 +2,13 @@ import { ChatContext } from "@/contexts/ChatContext";
 import { X } from "@phosphor-icons/react";
 import { useContext } from "react";
 import { TwitchChat } from "react-twitch-embed";
+import { useMediaQuery } from "@uidotdev/usehooks";
 
 interface Props {}
 
 export const Chats = ({}: Props) => {
 	const [chatList, { removeItem }] = useContext(ChatContext);
+	const isDesktop = useMediaQuery("(min-width: 640px)");
 
 	if (chatList.length === 0) return null;
 
@@ -16,10 +18,14 @@ export const Chats = ({}: Props) => {
 				<div
 					key={index}
 					style={{
-						height: `${chatList.length >= 2 ? 50 : 100}%`,
-						width: `${chatList.length > 2 ? 50 : 100}%`,
+						height: isDesktop
+							? `${chatList.length >= 2 ? 50 : 100}%`
+							: "100%",
+						width: isDesktop
+							? `${chatList.length > 2 ? 50 : 100}%`
+							: "50%",
 					}}
-					className="flex-grow flex flex-col items-center bg-cold-purple-900 !w-1/2 !h-full sm:w-auto sm:h-auto"
+					className="flex-grow flex flex-col items-center bg-cold-purple-900"
 				>
 					<div className="flex justify-between w-full px-3 py-1 items-center">
 						<span className="text-white">{chat}</span>

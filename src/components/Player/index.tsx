@@ -12,7 +12,7 @@ import {
 } from "@radix-ui/react-icons";
 import { getChannel } from "@/utils/getStreamUrl";
 import ReactPlayer from "react-player";
-import { useMediaQuery } from "react-responsive";
+import { useMediaQuery } from "@uidotdev/usehooks";
 
 interface Props {
 	channel: string;
@@ -51,9 +51,7 @@ const PlayerComponent = ({ columns, id, isYoutubeStream, ...props }: Props) => {
 
 	const channelSelected = chatlist.includes(channel);
 
-	const isDesktop = useMediaQuery({
-		query: "(min-width: 640px)",
-	});
+	const isDesktop = useMediaQuery("(min-width: 640px)");
 
 	return (
 		<div
@@ -112,14 +110,15 @@ const PlayerComponent = ({ columns, id, isYoutubeStream, ...props }: Props) => {
 									isDesktop &&
 									chatlist.length >= 4 &&
 									!channelSelected
-								) {
+								)
 									return;
-								} else if (
+
+								if (
+									!isDesktop &&
 									chatlist.length >= 2 &&
 									!channelSelected
-								) {
+								)
 									return;
-								}
 
 								toggleChat(channel, -1);
 							}}

@@ -14,7 +14,7 @@ import { getChannel } from "@/utils/getStreamUrl";
 
 import { PanelGroup, Panel, PanelResizeHandle } from "react-resizable-panels";
 import { ChatContext } from "@/contexts/ChatContext";
-import { useMediaQuery } from "react-responsive";
+import { useMediaQuery } from "@uidotdev/usehooks";
 
 interface Props {
 	params: {
@@ -37,9 +37,7 @@ export default function Streams({ params }: Props) {
 
 	const columns = getColumns(channels.length);
 
-	const isDesktop = useMediaQuery({
-		query: "(min-width: 640px)",
-	});
+	const isDesktop = useMediaQuery("(min-width: 640px)");
 
 	return (
 		<main
@@ -47,6 +45,7 @@ export default function Streams({ params }: Props) {
 				"h-screen max-h-screen bg-cold-purple-950 text-white w-[100%] flex pb-6 relative"
 			}
 		>
+			{isDesktop}
 			<PanelGroup direction={isDesktop ? "horizontal" : "vertical"}>
 				<Panel minSize={isDesktop ? 50 : 35} defaultSize={100}>
 					<div className="flex flex-wrap h-full max-h-screen flex-1">
