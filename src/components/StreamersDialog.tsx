@@ -11,6 +11,7 @@ import { Dialog } from "./Dialog";
 import { ArrowRightIcon, UpdateIcon } from "@radix-ui/react-icons";
 import { useEffect, useState } from "react";
 import { StreamType } from "@/@types/Stream";
+import { getChannel } from "@/utils/getStreamUrl";
 
 export const StreamersDialog = ({
 	locale,
@@ -100,6 +101,9 @@ export const StreamersDialog = ({
 								)}
 								isOnline={!!actualStream}
 								isPlayingQsmp={!!actualStream?.isPlayingQsmp}
+								isYoutubeStream={/^U/.test(
+									getChannel(streamer.twitchName)
+								)}
 							/>
 						);
 					})}

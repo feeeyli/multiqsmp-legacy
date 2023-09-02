@@ -10,7 +10,8 @@
 			"title": "Choose your streamers!!!",
 			"watch": "Watch",
 			"avatar": "Avatar of",
-			"noPlaying": "This streamer may not be playing QSMP."
+			"noPlaying": "This streamer may not be playing QSMP.",
+			"streamOnYoutube": "This streamer streams on Youtube."
 		},
 		"organize": {
 			"title": "Reorder your lives or chats.",
