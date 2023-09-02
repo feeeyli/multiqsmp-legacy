@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { Streamer } from "./Streamer";
 import { useList } from "@/utils/useList";
 
-import STREAMERS from "@/streamers.json";
+import { STREAMERS } from "@/streamers";
 import Link from "next/link";
 import { Dialog } from "./Dialog";
 import { ArrowRightIcon, UpdateIcon } from "@radix-ui/react-icons";

@@ -1,6 +1,4 @@
-import { StreamerType } from "@/components/Streamer";
-
-import STREAMERS from "@/streamers.json";
+import { STREAMERS } from "@/streamers";
 
 export function parseChannels(channels: string[]) {
 	const acceptedStreamers = STREAMERS.map((streamer) =>

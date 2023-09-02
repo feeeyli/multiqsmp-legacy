@@ -10,18 +10,24 @@ import {
 	SpeakerLoudIcon,
 	SpeakerOffIcon,
 } from "@radix-ui/react-icons";
+import { getChannel } from "@/utils/getStreamUrl";
+import ReactPlayer from "react-player";
+import { useMediaQuery } from "react-responsive";
 
 interface Props {
 	channel: string;
 	columns: number;
+	isYoutubeStream: boolean;
 	id: string;
 }
 
-const PlayerComponent = ({ channel, columns, id }: Props) => {
+const PlayerComponent = ({ columns, id, isYoutubeStream, ...props }: Props) => {
 	const [chatlist, { toggleItem: toggleChat }] = useContext(ChatContext);
 	const [muted, setMuted] = useState(true);
 	const [fullScreen, setFullScreen] = useState(false);
 	const [headerMenuOpened, setHeaderMenuOpened] = useState(false);
+
+	const channel = getChannel(props.channel);
 
 	const normalScreenStyle: CSSProperties = {
 		width: `${100 / Math.floor(columns)}%`,
@@ -45,6 +51,10 @@ const PlayerComponent = ({ channel, columns, id }: Props) => {
 
 	const channelSelected = chatlist.includes(channel);
 
+	const isDesktop = useMediaQuery({
+		query: "(min-width: 640px)",
+	});
+
 	return (
 		<div
 			className="relative flex-grow inset-0"
@@ -52,10 +62,11 @@ const PlayerComponent = ({ channel, columns, id }: Props) => {
 		>
 			<header
 				data-opened={headerMenuOpened}
-				className="group/menu absolute top-0 left-0 rounded-br-md bg-[#302a3963] flex items-center w-9 h-7 overflow-hidden data-[opened=true]:w-[6.25rem] sm:data-[opened=true]:w-[8.25rem] transition-all"
+				data-show-chat={isYoutubeStream}
+				className="group/menu absolute top-0 left-0 rounded-br-md bg-[#302a3963] flex items-center w-9 h-7 overflow-hidden data-[opened=true]:w-full max-w-[8.25rem] data-[show-chat=true]:max-w-[6.25rem] transition-all"
 			>
 				<button
-					className="px-2 py-1 hover:bg-[#302a39a1] focus:bg-[#302a39a1] h-full outline-none"
+					className="px-2 py-1 hover:bg-[#302a3963] h-full"
 					onClick={() => setHeaderMenuOpened((old) => !old)}
 				>
 					<ChevronLeftIcon
@@ -66,7 +77,7 @@ const PlayerComponent = ({ channel, columns, id }: Props) => {
 				<div className="min-w-[6rem] h-full">
 					<button
 						tabIndex={headerMenuOpened ? 0 : -1}
-						className="px-2 py-1 focus:bg-[#302a39a1] hover:bg-[#302a39a1] h-full outline-none"
+						className="px-2 py-1 hover:bg-[#302a3963] h-full"
 						onClick={handleMutedToggle}
 					>
 						{muted && (
@@ -78,7 +89,7 @@ const PlayerComponent = ({ channel, columns, id }: Props) => {
 					</button>
 					<button
 						tabIndex={headerMenuOpened ? 0 : -1}
-						className="px-2 py-1 focus:bg-[#302a39a1] hover:bg-[#302a39a1] h-full outline-none"
+						className="px-2 py-1 hover:bg-[#302a3963] h-full"
 						onClick={() => setFullScreen((old) => !old)}
 					>
 						{fullScreen && (
@@ -94,25 +105,47 @@ const PlayerComponent = ({ channel, columns, id }: Props) => {
 							/>
 						)}
 					</button>
-					<button
-						onClick={() => {
-							if (chatlist.length >= 4 && !channelSelected)
-								return;
+					{!isYoutubeStream && (
+						<button
+							onClick={() => {
+								if (
+									isDesktop &&
+									chatlist.length >= 4 &&
+									!channelSelected
+								) {
+									return;
+								} else if (
+									chatlist.length >= 2 &&
+									!channelSelected
+								) {
+									return;
+								}
 
-							toggleChat(channel, -1);
-						}}
-						tabIndex={headerMenuOpened ? 0 : -1}
-						className="sm:inline-block hidden px-2 py-1 focus:bg-[#302a39a1] hover:bg-[#302a39a1] h-full outline-none"
-					>
-						<ChatBubbleIcon
-							color="#fff"
-							data-opened={channelSelected}
-							className="opacity-50 data-[opened=true]:opacity-100 h-4 w-4"
-						/>
-					</button>
+								toggleChat(channel, -1);
+							}}
+							tabIndex={headerMenuOpened ? 0 : -1}
+							className="inline-block px-2 py-1 hover:bg-[#302a3963] h-full"
+						>
+							<ChatBubbleIcon
+								color="#fff"
+								data-opened={channelSelected}
+								className="opacity-50 data-[opened=true]:opacity-100 h-4 w-4"
+							/>
+						</button>
+					)}
 				</div>
 			</header>
-			<Embed channel={channel} id={id} ref={embedRef} />
+			{isYoutubeStream && (
+				<ReactPlayer
+					className="!h-full !w-full"
+					url={`https://www.youtube.com/embed/live_stream?channel=${channel}`}
+					volume={muted ? 0 : 1}
+					controls
+				/>
+			)}
+			{!isYoutubeStream && (
+				<Embed channel={channel} id={id} ref={embedRef} />
+			)}
 		</div>
 	);
 };

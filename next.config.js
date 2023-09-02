@@ -8,6 +8,12 @@ const nextConfig = {
 				port: "",
 				pathname: "/jtv_user_pictures/*",
 			},
+			{
+				protocol: "https",
+				hostname: "yt3.googleusercontent.com",
+				port: "",
+				pathname: "/*",
+			},
 		],
 	},
 };
