@@ -73,7 +73,12 @@ export default function Streams({ params }: Props) {
 				{chatList.length > 0 && (
 					<>
 						<PanelResizeHandle className="p-2 before:block relative before:bg-cold-purple-300 before:opacity-50 hover:before:opacity-70 active:before:opacity-100 before:absolute before:inset-1.5 before:rounded-full" />
-						<Panel minSize={20} defaultSize={35}>
+						<Panel
+							minSize={20}
+							defaultSize={35}
+							collapsedSize={0}
+							collapsible
+						>
 							<Chats />
 						</Panel>
 					</>
