@@ -1,3 +1,4 @@
+import { useForceUpdate } from "@/utils/useForceUpdate";
 import { forwardRef, memo, useImperativeHandle, useRef } from "react";
 import {
 	TwitchEmbed,
@@ -9,16 +10,19 @@ interface Props extends TwitchEmbedProps {}
 
 export interface EmbedRefProps {
 	setMuted: (muted: boolean) => void;
+	refresh: () => void;
 }
 
 const EmbedComponent = forwardRef(function Embed({ ...props }: Props, ref) {
 	const embedRef = useRef<TwitchEmbedInstance>();
+	const refresh = useForceUpdate();
 
 	useImperativeHandle(ref, () => {
 		return {
 			setMuted(muted: boolean) {
 				embedRef.current?.setMuted(muted);
 			},
+			refresh,
 		};
 	});
 

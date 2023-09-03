@@ -9,10 +9,12 @@ import {
 	ExitFullScreenIcon,
 	SpeakerLoudIcon,
 	SpeakerOffIcon,
+	UpdateIcon,
 } from "@radix-ui/react-icons";
 import { getChannel } from "@/utils/getStreamUrl";
 import ReactPlayer from "react-player";
 import { useMediaQuery } from "@uidotdev/usehooks";
+import { YTEmbed } from "./YTEmbed";
 
 interface Props {
 	channel: string;
@@ -61,7 +63,8 @@ const PlayerComponent = ({ columns, id, isYoutubeStream, ...props }: Props) => {
 			<header
 				data-opened={headerMenuOpened}
 				data-show-chat={isYoutubeStream}
-				className="group/menu absolute top-0 left-0 rounded-br-md bg-[#302a3963] flex items-center w-9 h-7 overflow-hidden data-[opened=true]:w-full max-w-[8.25rem] data-[show-chat=true]:max-w-[6.25rem] transition-all"
+				data-yt-stream={isYoutubeStream}
+				className="group/menu absolute top-0 left-0 rounded-br-md bg-[#302a3963] flex items-center w-9 h-7 overflow-hidden data-[opened=true]:w-full max-w-[10.25rem] data-[yt-stream=true]:max-w-[6.25rem] data-[show-chat=true]:max-w-[8.25rem] transition-all"
 			>
 				<button
 					className="px-2 py-1 hover:bg-[#302a3963] h-full"
@@ -132,16 +135,20 @@ const PlayerComponent = ({ columns, id, isYoutubeStream, ...props }: Props) => {
 							/>
 						</button>
 					)}
+					{!isYoutubeStream && (
+						<button
+							onClick={() => {
+								embedRef.current?.refresh();
+							}}
+							tabIndex={headerMenuOpened ? 0 : -1}
+							className="inline-block px-2 py-1 hover:bg-[#302a3963] h-full"
+						>
+							<UpdateIcon color="#fff" className="h-4 w-4" />
+						</button>
+					)}
 				</div>
 			</header>
-			{isYoutubeStream && (
-				<ReactPlayer
-					className="!h-full !w-full"
-					url={`https://www.youtube.com/embed/live_stream?channel=${channel}`}
-					volume={muted ? 0 : 1}
-					controls
-				/>
-			)}
+			{isYoutubeStream && <YTEmbed channel={channel} muted={muted} />}
 			{!isYoutubeStream && (
 				<Embed channel={channel} id={id} ref={embedRef} />
 			)}
