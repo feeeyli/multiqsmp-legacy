@@ -32,7 +32,7 @@ export const Streamer = ({
 		<button
 			onClick={() => onClick && onClick(streamer.twitchName)}
 			data-selected={selected}
-			data-online={isOnline}
+			data-online={isYoutubeStream || isOnline}
 			className="group lg:overflow-hidden rounded-xl bg-[#333] w-fit h-min data-[selected=true]:shadow-[0px_0px_0px_2px_#bea7e5] relative"
 		>
 			<Image
