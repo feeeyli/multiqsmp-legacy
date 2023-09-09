@@ -38,9 +38,9 @@ export default function Streams({ params }: Props) {
 
 	const t = useTranslations("index");
 
-	const columns = getColumns(channels.length);
-
 	const isDesktop = useMediaQuery("(min-width: 640px)");
+
+	const columns = getColumns(channels.length, isDesktop);
 
 	return (
 		<TooltipProvider>
