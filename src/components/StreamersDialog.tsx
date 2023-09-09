@@ -26,6 +26,8 @@ export const StreamersDialog = ({
 		{ twitchName: string; isPlayingQsmp: boolean }[]
 	>([]);
 
+	console.log(process.env);
+
 	useEffect(() => {
 		(async () => {
 			const twitchStreamers = STREAMERS.filter(
@@ -39,8 +41,8 @@ export const StreamersDialog = ({
 				"https://api.twitch.tv/helix/streams?" + twitchStreamers,
 				{
 					headers: {
-						Authorization: "Bearer i6889ycv4g9aw5mabc1ozozpelpkwu",
-						"Client-Id": "iriodovqpouhcqrdy52cy3b95sv69h",
+						Authorization: `Bearer ${process.env.NEXT_PUBLIC_TWITCH_SECRET}`,
+						"Client-Id": process.env.NEXT_PUBLIC_TWITCH_CLIENT_ID!,
 					},
 				}
 			);
