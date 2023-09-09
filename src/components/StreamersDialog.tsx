@@ -26,8 +26,6 @@ export const StreamersDialog = ({
 		{ twitchName: string; isPlayingQsmp: boolean }[]
 	>([]);
 
-	console.log(process.env);
-
 	useEffect(() => {
 		(async () => {
 			const twitchStreamers = STREAMERS.filter(
