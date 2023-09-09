@@ -64,7 +64,7 @@ const PlayerComponent = ({ columns, id, isYoutubeStream, ...props }: Props) => {
 				data-opened={headerMenuOpened}
 				data-show-chat={isYoutubeStream}
 				data-yt-stream={isYoutubeStream}
-				className="group/menu absolute top-0 left-0 rounded-br-md bg-[#302a3963] flex items-center w-9 h-7 overflow-hidden data-[opened=true]:w-full max-w-[10.25rem] data-[yt-stream=true]:max-w-[6.25rem] data-[show-chat=true]:max-w-[8.25rem] transition-all"
+				className="group/menu absolute top-1 left-1 rounded-md bg-[#302a3963] flex items-center w-9 h-7 overflow-hidden data-[opened=true]:w-full max-w-[10.25rem] data-[yt-stream=true]:max-w-[6.25rem] data-[show-chat=true]:max-w-[8.25rem] transition-all"
 			>
 				<button
 					className="px-2 py-1 hover:bg-[#302a3963] h-full"
