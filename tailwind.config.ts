@@ -106,7 +106,16 @@ const config: Config = {
 			screens: {
 				wb: "963px",
 			},
+
 			keyframes: {
+				wow: {
+					from: {
+						transform: "rotate(0deg)",
+					},
+					to: {
+						transform: "rotate(360deg)",
+					},
+				},
 				overlayShow: {
 					from: { opacity: "0" },
 					to: { opacity: "1" },
@@ -159,6 +168,7 @@ const config: Config = {
 					"slideUpAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
 				slideRightAndFade:
 					"slideRightAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
+				wow: "wow 400ms cubic-bezier(0.72, 0.01, 0.22, 0.96)",
 			},
 			fontFamily: {
 				sans: ["Poppins", "sans-serif"],
