@@ -8,10 +8,6 @@ import { TooltipProvider } from "@radix-ui/react-tooltip";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400"] });
 
-export const metadata: Metadata = {
-	title: "MultiQSMP",
-};
-
 export function generateStaticParams() {
 	return [
 		{ locale: "pt" },
