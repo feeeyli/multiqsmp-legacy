@@ -162,6 +162,11 @@ export const STREAMERS = [
 			"https://yt3.googleusercontent.com/5vqxHPajO65W8t2GULUSZq-J5MEqThFO1n4SakaWvmQHC8rUxgEec6fmqIGY0r06UWi7gVxY2wk=s176-c-k-c0x00ffffff-no-rj",
 	},
 	{
+		"twitchName": "bagi",
+		"displayName": "Bagi",
+		"avatarUrl": "https://static-cdn.jtvnw.net/jtv_user_pictures/762a31e8-9829-4957-8073-dd85d67ad576-profile_image-300x300.png"
+	},
+	{
 		twitchName: "cellbit",
 		displayName: "Cellbit",
 		avatarUrl:
