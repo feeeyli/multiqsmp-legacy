@@ -11,7 +11,8 @@
 			"watch": "Reloj",
 			"avatar": "Avatar de",
 			"noPlaying": "Puede que este streamer no esté jugando a QSMP.",
-			"streamOnYoutube": "Este streamer hace directo en Youtube."
+			"streamOnYoutube": "Este streamer hace directo en Youtube.",
+			"groups": "Grupos"
 		},
 		"organize": {
 			"title": "Reordenar tus directos o chats.",

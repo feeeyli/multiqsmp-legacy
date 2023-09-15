@@ -11,7 +11,8 @@
 			"watch": "Assistir",
 			"avatar": "Avatar de",
 			"noPlaying": "Esse streamer pode não estar jogando QSMP.",
-			"streamOnYoutube": "Esse streamer faz live pelo Youtube."
+			"streamOnYoutube": "Esse streamer faz live pelo Youtube.",
+			"groups": "Grupos"
 		},
 		"organize": {
 			"title": "Reorganize suas lives ou chats.",

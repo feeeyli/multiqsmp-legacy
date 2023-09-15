@@ -25,7 +25,12 @@ interface Props {
 }
 
 export default function Streams({ params }: Props) {
-	const channels = parseChannels(params.streams || []);
+	const [selectedChannels, selectedChannelsFromGroups, selectedGroups] =
+		parseChannels(params.streams || []);
+
+	const channelsMerged = [
+		...new Set([...selectedChannels, ...selectedChannelsFromGroups]),
+	];
 
 	const [resizing, setResizing] = useState(false);
 
@@ -33,14 +38,14 @@ export default function Streams({ params }: Props) {
 	const [chatList] = useContext(ChatContext);
 
 	useEffect(() => {
-		updateList(channels);
+		updateList(channelsMerged);
 	}, []);
 
 	const t = useTranslations("index");
 
 	const isDesktop = useMediaQuery("(min-width: 640px)");
 
-	const columns = getColumns(channels.length, isDesktop);
+	const columns = getColumns(channelsMerged.length, isDesktop);
 
 	return (
 		<TooltipProvider>
@@ -56,7 +61,7 @@ export default function Streams({ params }: Props) {
 							data-resizing={resizing}
 							className="flex flex-wrap h-full max-h-screen flex-1 data-[resizing=true]:pointer-events-none"
 						>
-							{channels.map((channel) => (
+							{channelsMerged.map((channel) => (
 								<Player
 									channel={channel}
 									key={channel}
@@ -67,7 +72,7 @@ export default function Streams({ params }: Props) {
 									)}
 								/>
 							))}
-							{channels.length === 0 && (
+							{channelsMerged.length === 0 && (
 								<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85%] max-w-sm">
 									<span className="sm:hidden block text-center">
 										{t("noStreamers")}{" "}
@@ -99,8 +104,11 @@ export default function Streams({ params }: Props) {
 						</>
 					)}
 				</PanelGroup>
-
-				<StreamersDialog locale={params.locale} channels={channels} />
+				<StreamersDialog
+					locale={params.locale}
+					selectedChannels={selectedChannels}
+					selectedGroups={selectedGroups}
+				/>
 				<OrganizeDialog locale={params.locale} />
 			</main>
 		</TooltipProvider>

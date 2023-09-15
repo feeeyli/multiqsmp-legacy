@@ -32,7 +32,7 @@ const Trigger = ({ className, ...props }: TriggerProps) => (
 type ContentProps = { children: ReactNode };
 
 const Content = ({ children }: ContentProps) => (
-	<DialogPrimitive.Content className="text-white w-[90%] sm:w-[75%] flex flex-col items-center px-8 data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] rounded-xl bg-silver-950 border-2 border-cold-purple-900 focus:outline-none">
+	<DialogPrimitive.Content className="text-white w-[90%] sm:w-[65%] flex flex-col items-center px-8 data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] rounded-xl bg-silver-950 border-2 border-cold-purple-900 focus:outline-none">
 		{children}
 	</DialogPrimitive.Content>
 );

@@ -36,6 +36,12 @@ export const STREAMERS = [
 			"https://static-cdn.jtvnw.net/jtv_user_pictures/jaidenanimations-profile_image-3e0e81c44b77b57a-300x300.png",
 	},
 	{
+		twitchName: "lenay",
+		displayName: "Lenay",
+		avatarUrl:
+			"https://static-cdn.jtvnw.net/jtv_user_pictures/6e1d1057-a18d-495a-b6f8-36bfb744e818-profile_image-300x300.png",
+	},
+	{
 		twitchName: "nihachu",
 		displayName: "Nihachu",
 		avatarUrl:
@@ -72,6 +78,12 @@ export const STREAMERS = [
 			"https://static-cdn.jtvnw.net/jtv_user_pictures/905af69a-4fd8-42c7-b842-bf4ee4d51b3b-profile_image-300x300.png",
 	},
 	{
+		twitchName: "TubboLIVE",
+		displayName: "TubboLive",
+		avatarUrl:
+			"https://static-cdn.jtvnw.net/jtv_user_pictures/82db33be-a407-46d8-b6b6-3e85825160b8-profile_image-300x300.png",
+	},
+	{
 		twitchName: "wilbursoot",
 		displayName: "Wilbur Soot",
 		avatarUrl:
@@ -94,12 +106,6 @@ export const STREAMERS = [
 		displayName: "QuackityToo",
 		avatarUrl:
 			"https://static-cdn.jtvnw.net/jtv_user_pictures/e4b8f0d6-91ed-4233-b923-aae2c9269992-profile_image-300x300.png",
-	},
-	{
-		twitchName: "lenay",
-		displayName: "Lenay",
-		avatarUrl:
-			"https://static-cdn.jtvnw.net/jtv_user_pictures/6e1d1057-a18d-495a-b6f8-36bfb744e818-profile_image-300x300.png",
 	},
 	{
 		twitchName: "luzu",
@@ -162,9 +168,10 @@ export const STREAMERS = [
 			"https://yt3.googleusercontent.com/5vqxHPajO65W8t2GULUSZq-J5MEqThFO1n4SakaWvmQHC8rUxgEec6fmqIGY0r06UWi7gVxY2wk=s176-c-k-c0x00ffffff-no-rj",
 	},
 	{
-		"twitchName": "bagi",
-		"displayName": "Bagi",
-		"avatarUrl": "https://static-cdn.jtvnw.net/jtv_user_pictures/762a31e8-9829-4957-8073-dd85d67ad576-profile_image-300x300.png"
+		twitchName: "bagi",
+		displayName: "Bagi",
+		avatarUrl:
+			"https://static-cdn.jtvnw.net/jtv_user_pictures/762a31e8-9829-4957-8073-dd85d67ad576-profile_image-300x300.png",
 	},
 	{
 		twitchName: "cellbit",

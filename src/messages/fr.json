@@ -11,7 +11,8 @@
 			"watch": "Regarder",
 			"avatar": "Avatar de",
 			"noPlaying": "Ce streamer ne joue peut-être pas sur QSMP.",
-			"streamOnYoutube": "Ce streamer diffuse sur Youtube."
+			"streamOnYoutube": "Ce streamer diffuse sur Youtube.",
+			"groups": "Groupes"
 		},
 		"organize": {
 			"title": "Réorganisez vos lives ou vos chats.",
