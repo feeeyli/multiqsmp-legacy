@@ -21,6 +21,7 @@ import { useReadLocalStorage } from "usehooks-ts";
 import { sortGroups, sortStreamers } from "@/utils/sort";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { useSearchParams } from "next/navigation";
+import { useFlags } from "@/flags/client";
 
 const LANG_GROUPS = ["favela6", "france", "english", "hispanos"];
 
@@ -48,6 +49,8 @@ export const StreamersDialog = ({
 	const [onlineStreamers, setOnlineStreamers] = useState<
 		{ twitchName: string; isPlayingQsmp: boolean }[]
 	>([]);
+
+	const { flags } = useFlags();
 
 	useEffect(() => {
 		(async () => {
@@ -95,9 +98,9 @@ export const StreamersDialog = ({
 		{ updateList: setSelectedGroups, toggleItem: toggleSelectedGroup },
 	] = useList(initialSelectedGroups);
 
-	const SPECIAL_STREAMERS = STREAMERS.filter(
-		(streamer) => streamer.twitchName !== "bagi"
-	);
+	const SPECIAL_STREAMERS = !flags?.new_participant
+		? STREAMERS
+		: STREAMERS.filter((streamer) => streamer.twitchName !== "bagi");
 
 	const FAVORITE_STREAMERS = SPECIAL_STREAMERS.filter((s) =>
 		favoriteStreamers?.includes(s.twitchName)
@@ -154,47 +157,49 @@ export const StreamersDialog = ({
 							className="max-h-96 p-[2px] overflow-y-auto w-full mt-4 flex justify-center flex-row flex-wrap grid-cols-[repeat(2,_minmax(0,_6rem))] sm:grid-cols-[repeat(3,_minmax(0,_8rem))] gap-4 scrollbar pr-3"
 							value="streamers"
 						>
-							<div className="flex w-full items-center gap-2 flex-col">
-								<span className="text-cold-purple-500 font-bold">
-									{t("newParticipant")}
-								</span>
-								<Streamer
-									streamer={
-										STREAMERS.find(
-											(s) => s.twitchName === "bagi"
-										)!
-									}
-									onClick={() =>
-										toggleSelectedStreamer("bagi", -1)
-									}
-									selected={selectedStreamers.includes(
-										"bagi"
-									)}
-									isOnline={
-										!!onlineStreamers.find(
-											(online) =>
-												online.twitchName.toLocaleLowerCase() ===
-												"bagi"
-										)
-									}
-									isPlayingQsmp={
-										!!onlineStreamers.find(
-											(online) =>
-												online.twitchName.toLocaleLowerCase() ===
-												"bagi"
-										)?.isPlayingQsmp
-									}
-									isYoutubeStream={false}
-									isFavorite={favoriteStreamers?.includes(
-										"bagi"
-									)}
-								/>
-								<Separator.Root
-									className="bg-cold-purple-500/20 my-2 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px mx-[15px]"
-									decorative
-									orientation="horizontal"
-								/>
-							</div>
+							{flags?.new_participant && (
+								<div className="flex w-full items-center gap-2 flex-col">
+									<span className="text-cold-purple-500 font-bold">
+										{t("newParticipant")}
+									</span>
+									<Streamer
+										streamer={
+											STREAMERS.find(
+												(s) => s.twitchName === "bagi"
+											)!
+										}
+										onClick={() =>
+											toggleSelectedStreamer("bagi", -1)
+										}
+										selected={selectedStreamers.includes(
+											"bagi"
+										)}
+										isOnline={
+											!!onlineStreamers.find(
+												(online) =>
+													online.twitchName.toLocaleLowerCase() ===
+													"bagi"
+											)
+										}
+										isPlayingQsmp={
+											!!onlineStreamers.find(
+												(online) =>
+													online.twitchName.toLocaleLowerCase() ===
+													"bagi"
+											)?.isPlayingQsmp
+										}
+										isYoutubeStream={false}
+										isFavorite={favoriteStreamers?.includes(
+											"bagi"
+										)}
+									/>
+									<Separator.Root
+										className="bg-cold-purple-500/20 my-2 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px mx-[15px]"
+										decorative
+										orientation="horizontal"
+									/>
+								</div>
+							)}
 							{FAVORITE_STREAMERS.length > 0 && (
 								<>
 									{sortStreamers(FAVORITE_STREAMERS).map(
