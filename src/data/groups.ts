@@ -244,6 +244,13 @@ export const GROUPS = [
 		twitchNames: ["cellbit", "forever"],
 	},
 	{
+		groupName: "Meanduo",
+		simpleGroupName: "meanduo",
+		members: ["Baghera", "Forever"],
+		avatars: ["bagherajones", "forever"],
+		twitchNames: ["bagherajones", "forever"],
+	},
+	{
 		groupName: "Mexican Gang",
 		simpleGroupName: "mexicangang",
 		members: ["Roier", "Quackity", "MissaSinfonia", "ElMariana", "Rivers"],
