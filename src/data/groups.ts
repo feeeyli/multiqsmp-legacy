@@ -286,8 +286,8 @@ export const GROUPS = [
 		twitchNames: ["fitmc", "tazercraft"],
 	},
 	{
-		groupName: "Insandeduo",
-		simpleGroupName: "insandeduo",
+		groupName: "Insaneduo",
+		simpleGroupName: "insaneduo",
 		members: ["Cellbit", "Forever"],
 		avatars: ["cellbit", "forever"],
 		twitchNames: ["cellbit", "forever"],
