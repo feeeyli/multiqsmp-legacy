@@ -204,9 +204,30 @@ export const GROUPS = [
 	{
 		groupName: "Death Family",
 		simpleGroupName: "deathfamily",
-		members: ["Philza", "MissaSinfonia", "Tubbo", "Fit", "Forever"],
-		avatars: ["philza", "missasinfonia", "tubbo", "fitmc", "forever"],
-		twitchNames: ["philza", "missasinfonia", "tubbo", "fitmc", "forever"],
+		members: [
+			"Philza",
+			"MissaSinfonia",
+			"Tubbo",
+			"Fit",
+			"Forever",
+			"WilburSoot",
+		],
+		avatars: [
+			"philza",
+			"missasinfonia",
+			"tubbo",
+			"fitmc",
+			"forever",
+			"wilbursoot",
+		],
+		twitchNames: [
+			"philza",
+			"missasinfonia",
+			"tubbo",
+			"fitmc",
+			"forever",
+			"wilbursoot",
+		],
 	},
 	{
 		groupName: "Deathduo",
