@@ -150,7 +150,7 @@ export const StreamersDialog = ({
 							className="max-h-96 p-[2px] overflow-y-auto w-full mt-4 flex justify-center flex-row flex-wrap grid-cols-[repeat(2,_minmax(0,_6rem))] sm:grid-cols-[repeat(3,_minmax(0,_8rem))] gap-4 scrollbar pr-3"
 							value="streamers"
 						>
-							{FAVORITE_STREAMERS && (
+							{FAVORITE_STREAMERS.length > 0 && (
 								<>
 									{sortStreamers(FAVORITE_STREAMERS).map(
 										(streamer) => {
@@ -230,7 +230,7 @@ export const StreamersDialog = ({
 							className="max-h-96 p-[2px] overflow-y-auto w-full mt-4 flex justify-center flex-row flex-wrap grid-cols-[repeat(2,_minmax(0,_6rem))] sm:grid-cols-[repeat(3,_minmax(0,_8rem))] gap-4 scrollbar pr-3"
 							value="groups"
 						>
-							{FAVORITE_GROUPS && (
+							{FAVORITE_GROUPS.length > 0 && (
 								<>
 									{sortGroups(FAVORITE_GROUPS).map(
 										(group) => {
