@@ -65,7 +65,11 @@ export default function Streams({ params }: Props) {
 			? []
 			: searchParams.get("groups")?.split("/") || [];
 
-	const [chatList] = useContext(ChatContext);
+	// const [chatList] = useContext(ChatContext);
+	const chatList =
+		searchParams.get("chats") === ""
+			? []
+			: searchParams.get("chats")?.split("/") || [];
 
 	const channelsMerged = [
 		...new Set([
@@ -120,7 +124,7 @@ export default function Streams({ params }: Props) {
 							)}
 						</div>
 					</Panel>
-					{chatList.length > 0 && (
+					{chatList.length > 0 && channelsMerged.length > 0 && (
 						<>
 							<PanelResizeHandle
 								onDragging={(dragging) => setResizing(dragging)}
@@ -134,7 +138,10 @@ export default function Streams({ params }: Props) {
 								data-resizing={resizing}
 								className="data-[resizing=true]:pointer-events-none"
 							>
-								<Chats resizing={resizing} />
+								<Chats
+									resizing={resizing}
+									chatList={chatList}
+								/>
 							</Panel>
 						</>
 					)}

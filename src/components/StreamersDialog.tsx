@@ -20,6 +20,7 @@ import { CreateGroup } from "./CreateGroup";
 import { useReadLocalStorage } from "usehooks-ts";
 import { sortGroups, sortStreamers } from "@/utils/sort";
 import { DialogClose } from "@radix-ui/react-dialog";
+import { useSearchParams } from "next/navigation";
 
 const LANG_GROUPS = ["favela6", "france", "english", "hispanos"];
 
@@ -38,6 +39,7 @@ export const StreamersDialog = ({
 	const favoriteStreamers =
 		useReadLocalStorage<string[]>("favoriteStreamers");
 	const favoriteGroups = useReadLocalStorage<string[]>("favoriteGroups");
+	const searchParams = useSearchParams();
 
 	const MERGED_GROUPS = [
 		...new Set([...GROUPS, ...((customGroups as typeof GROUPS) || [])]),
@@ -106,6 +108,11 @@ export const StreamersDialog = ({
 	const NORMAL_GROUPS = GROUPS.filter(
 		(g) => !favoriteGroups?.includes(g.simpleGroupName)
 	);
+
+	const chatList =
+		searchParams.get("chats") === ""
+			? []
+			: searchParams.get("chats")?.split("/") || [];
 
 	return (
 		<Dialog.Root
@@ -391,6 +398,12 @@ export const StreamersDialog = ({
 							}${
 								selectedGroups.length > 0
 									? "&groups=" + selectedGroups.join("/")
+									: ""
+							}${
+								chatList.length > 0 &&
+								(selectedStreamers.length > 0 ||
+									selectedGroups.length > 0)
+									? "&chats=" + chatList.join("/")
 									: ""
 							}`}
 						>

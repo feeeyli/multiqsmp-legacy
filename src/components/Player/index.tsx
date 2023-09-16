@@ -1,4 +1,11 @@
-import { CSSProperties, memo, useContext, useRef, useState } from "react";
+import {
+	CSSProperties,
+	memo,
+	useCallback,
+	useContext,
+	useRef,
+	useState,
+} from "react";
 import { Embed, EmbedRefProps } from "./Embed";
 import { ChatContext } from "@/contexts/ChatContext";
 
@@ -13,6 +20,8 @@ import {
 } from "@radix-ui/react-icons";
 import { getChannel } from "@/utils/getStreamUrl";
 import { useMediaQuery } from "@uidotdev/usehooks";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 interface Props {
 	channel: string;
@@ -22,11 +31,19 @@ interface Props {
 }
 
 const PlayerComponent = ({ columns, id, isYoutubeStream, ...props }: Props) => {
-	const [chatlist, { toggleItem: toggleChat }] = useContext(ChatContext);
+	const searchParams = useSearchParams()!;
+	const router = useRouter();
+	const pathname = usePathname();
+	// const [chatlist, { toggleItem: toggleChat }] = useContext(ChatContext);
 	const [muted, setMuted] = useState(true);
 	const [fullScreen, setFullScreen] = useState(false);
 	const [headerMenuOpened, setHeaderMenuOpened] = useState(false);
 	const [refreshing, setRefreshing] = useState(false);
+
+	const chatList =
+		searchParams.get("chats") === ""
+			? []
+			: searchParams.get("chats")?.split("/") || [];
 
 	const channel = getChannel(props.channel);
 
@@ -48,15 +65,34 @@ const PlayerComponent = ({ columns, id, isYoutubeStream, ...props }: Props) => {
 		setMuted(!muted);
 	};
 
-	const channelSelected = chatlist.includes(channel);
+	const channelSelected = chatList.includes(channel);
 
 	const isDesktop = useMediaQuery("(min-width: 640px)");
+
+	function toggleChat(chat: string) {
+		if (chatList.includes(chat)) {
+			const index = chatList.indexOf(chat);
+
+			const beforeIndex = chatList.slice(0, index);
+
+			const afterIndex = chatList.slice(index + 1);
+
+			return [...beforeIndex, ...afterIndex];
+		} else {
+			return [...chatList, chat];
+		}
+	}
+
+	const chatLinkRef = useRef<HTMLAnchorElement>(null);
 
 	return (
 		<div
 			className="relative flex-grow inset-0"
 			style={fullScreen ? fullScreenStyle : normalScreenStyle}
 		>
+			{/* <Link ref={chatLinkRef} href="">
+				TESTE
+			</Link> */}
 			<header
 				data-opened={headerMenuOpened}
 				data-show-chat={isYoutubeStream}
@@ -107,19 +143,49 @@ const PlayerComponent = ({ columns, id, isYoutubeStream, ...props }: Props) => {
 							onClick={() => {
 								if (
 									isDesktop &&
-									chatlist.length >= 4 &&
+									chatList.length >= 4 &&
 									!channelSelected
 								)
 									return;
 
 								if (
 									!isDesktop &&
-									chatlist.length >= 2 &&
+									chatList.length >= 2 &&
 									!channelSelected
 								)
 									return;
 
-								toggleChat(channel, -1);
+								const newChatList = toggleChat(channel);
+
+								const newSearchParams = new URLSearchParams(
+									window.location.search
+								);
+
+								if (newChatList.length === 0) {
+									newSearchParams.delete("chats");
+								} else if (newSearchParams.get("chats")) {
+									newSearchParams.set(
+										"chats",
+										newChatList.join("/")
+									);
+								} else {
+									newSearchParams.append(
+										"chats",
+										newChatList.join("/")
+									);
+								}
+
+								router.replace(
+									pathname +
+										"?" +
+										newSearchParams
+											.toString()
+											.replaceAll("%2F", "/")
+								);
+
+								// chatLinkRef.current!.href =
+								// 	`?${newSearchParams}`;
+								// chatLinkRef.current!.click();
 							}}
 							tabIndex={headerMenuOpened ? 0 : -1}
 							className="inline-block px-2 py-1 hover:bg-[#302a3963] h-full"

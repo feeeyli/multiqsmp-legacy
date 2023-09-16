@@ -51,8 +51,13 @@ export const OrganizeDialog = ({ locale }: { locale: string }) => {
 		]),
 	];
 
+	const chatList =
+		searchParams.get("chats") === ""
+			? []
+			: searchParams.get("chats")?.split("/") || [];
+
 	const [chats, { updateList: setChats, moveItem: moveChat }] =
-		useContext(ChatContext);
+		useList(chatList);
 
 	const [players, { updateList: setPlayers, moveItem: movePlayer }] =
 		useList(channelsMerged);
@@ -61,6 +66,7 @@ export const OrganizeDialog = ({ locale }: { locale: string }) => {
 		<Dialog.Root
 			onOpenChange={() => {
 				setPlayers(channelsMerged);
+				setChats(chatList);
 			}}
 		>
 			<Dialog.Trigger className="left-0 bottom-0 rounded-tr-lg">
@@ -183,6 +189,10 @@ export const OrganizeDialog = ({ locale }: { locale: string }) => {
 							}${
 								actualGroups.length > 0
 									? "&groups=" + actualGroups.join("/")
+									: ""
+							}${
+								chats.length > 0
+									? "&chats=" + chats.join("/")
 									: ""
 							}`}
 						>
