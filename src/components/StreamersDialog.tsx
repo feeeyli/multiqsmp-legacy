@@ -18,10 +18,10 @@ import { getChannel } from "@/utils/getStreamUrl";
 import { GROUPS } from "@/data/groups";
 import { CreateGroup } from "./CreateGroup";
 import { useReadLocalStorage } from "usehooks-ts";
-import { sortGroups } from "@/utils/sortGroups";
-import { PlayersContext } from "@/contexts/PlayersContext";
-import { StreamsAndGroupsContent } from "@/contexts/StreamsAndGroupsContent";
+import { sortGroups, sortStreamers } from "@/utils/sort";
 import { DialogClose } from "@radix-ui/react-dialog";
+
+const LANG_GROUPS = ["favela6", "france", "english", "hispanos"];
 
 export const StreamersDialog = ({
 	locale,
@@ -35,6 +35,9 @@ export const StreamersDialog = ({
 	const t = useTranslations("modal.streamers");
 	const [actualTab, setActualTab] = useState("streamers");
 	const customGroups = useReadLocalStorage<typeof GROUPS>("customGroups");
+	const favoriteStreamers =
+		useReadLocalStorage<string[]>("favoriteStreamers");
+	const favoriteGroups = useReadLocalStorage<string[]>("favoriteGroups");
 
 	const MERGED_GROUPS = [
 		...new Set([...GROUPS, ...((customGroups as typeof GROUPS) || [])]),
@@ -90,15 +93,24 @@ export const StreamersDialog = ({
 		{ updateList: setSelectedGroups, toggleItem: toggleSelectedGroup },
 	] = useList(initialSelectedGroups);
 
-	const [
-		[, { updateList: updateStreamsList }],
-		[, { updateList: updateGroupsList }],
-	] = useContext(StreamsAndGroupsContent);
+	const FAVORITE_STREAMERS = STREAMERS.filter((s) =>
+		favoriteStreamers?.includes(s.twitchName)
+	);
+	const NORMAL_STREAMERS = STREAMERS.filter(
+		(s) => !favoriteStreamers?.includes(s.twitchName)
+	);
+
+	const FAVORITE_GROUPS = GROUPS.filter((g) =>
+		favoriteGroups?.includes(g.simpleGroupName)
+	);
+	const NORMAL_GROUPS = GROUPS.filter(
+		(g) => !favoriteGroups?.includes(g.simpleGroupName)
+	);
 
 	return (
 		<Dialog.Root
 			onOpenChange={(open) => {
-				if (open === false) setSelectedStreamers(selectedChannels);
+				setSelectedStreamers(selectedChannels);
 			}}
 		>
 			<Dialog.Trigger className="right-0 bottom-0 rounded-tl-lg">
@@ -131,7 +143,52 @@ export const StreamersDialog = ({
 							className="max-h-96 p-[2px] overflow-y-auto w-full mt-4 flex justify-center flex-row flex-wrap grid-cols-[repeat(2,_minmax(0,_6rem))] sm:grid-cols-[repeat(3,_minmax(0,_8rem))] gap-4 scrollbar pr-3"
 							value="streamers"
 						>
-							{STREAMERS.map((streamer) => {
+							{FAVORITE_STREAMERS && (
+								<>
+									{sortStreamers(FAVORITE_STREAMERS).map(
+										(streamer) => {
+											const actualStream =
+												onlineStreamers.find(
+													(online) =>
+														online.twitchName.toLocaleLowerCase() ===
+														streamer.twitchName.toLocaleLowerCase()
+												);
+
+											return (
+												<Streamer
+													key={streamer.twitchName}
+													streamer={streamer}
+													onClick={() =>
+														toggleSelectedStreamer(
+															streamer.twitchName,
+															-1
+														)
+													}
+													selected={selectedStreamers.includes(
+														streamer.twitchName
+													)}
+													isOnline={!!actualStream}
+													isPlayingQsmp={
+														!!actualStream?.isPlayingQsmp
+													}
+													isYoutubeStream={/^U/.test(
+														getChannel(
+															streamer.twitchName
+														)
+													)}
+													isFavorite
+												/>
+											);
+										}
+									)}
+									<Separator.Root
+										className="bg-cold-purple-500/20 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px mx-[15px]"
+										decorative
+										orientation="horizontal"
+									/>
+								</>
+							)}
+							{NORMAL_STREAMERS.map((streamer) => {
 								const actualStream = onlineStreamers.find(
 									(online) =>
 										online.twitchName.toLocaleLowerCase() ===
@@ -166,8 +223,44 @@ export const StreamersDialog = ({
 							className="max-h-96 p-[2px] overflow-y-auto w-full mt-4 flex justify-center flex-row flex-wrap grid-cols-[repeat(2,_minmax(0,_6rem))] sm:grid-cols-[repeat(3,_minmax(0,_8rem))] gap-4 scrollbar pr-3"
 							value="groups"
 						>
+							{FAVORITE_GROUPS && (
+								<>
+									{sortGroups(FAVORITE_GROUPS).map(
+										(group) => {
+											return (
+												<Group
+													key={group.groupName}
+													group={group}
+													onClick={() =>
+														toggleSelectedGroup(
+															group.simpleGroupName,
+															-1
+														)
+													}
+													selected={selectedGroups.includes(
+														group.simpleGroupName
+													)}
+													isOnline
+													isPlayingQsmp
+													custom={customGroups?.includes(
+														group
+													)}
+													isFavorite
+												/>
+											);
+										}
+									)}
+									<Separator.Root
+										className="bg-cold-purple-500/20 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px mx-[15px]"
+										decorative
+										orientation="horizontal"
+									/>
+								</>
+							)}
 							{sortGroups(
-								GROUPS.filter((_, index) => index < 4)
+								NORMAL_GROUPS.filter((g) =>
+									LANG_GROUPS.includes(g.simpleGroupName)
+								)
 							).map((group) => {
 								return (
 									<Group
@@ -193,7 +286,10 @@ export const StreamersDialog = ({
 								orientation="horizontal"
 							/>
 							{sortGroups(
-								GROUPS.filter((_, index) => index >= 4)
+								NORMAL_GROUPS.filter(
+									(g) =>
+										!LANG_GROUPS.includes(g.simpleGroupName)
+								)
 							).map((group) => {
 								return (
 									<Group

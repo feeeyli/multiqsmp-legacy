@@ -1,4 +1,4 @@
-import { TrashIcon } from "@radix-ui/react-icons";
+import { HeartFilledIcon, HeartIcon, TrashIcon } from "@radix-ui/react-icons";
 import * as Avatars from "./AvatarsGroup";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { useLocalStorage } from "usehooks-ts";
@@ -20,6 +20,7 @@ interface Props {
 	isOnline: boolean;
 	isYoutubeStream?: boolean;
 	custom?: boolean;
+	isFavorite?: boolean;
 }
 
 export const Group = ({
@@ -29,15 +30,47 @@ export const Group = ({
 	isOnline,
 	isYoutubeStream = false,
 	custom = false,
+	isFavorite = false,
 }: Props) => {
 	const [_, setCustomGroups] = useLocalStorage<typeof GROUPS>(
 		"customGroups",
 		[]
 	);
 
+	const [favoriteGroups, setFavoriteGroups] = useLocalStorage<string[]>(
+		"favoriteGroups",
+		[]
+	);
+
+	function toggleFavoriteStreamers() {
+		if (favoriteGroups.includes(group.simpleGroupName)) {
+			const index = favoriteGroups.indexOf(group.simpleGroupName);
+
+			setFavoriteGroups((old) => {
+				const beforeIndex = old.slice(0, index);
+
+				const afterIndex = old.slice(index + 1);
+
+				return [...beforeIndex, ...afterIndex];
+			});
+		} else {
+			setFavoriteGroups((old) => [...old, group.simpleGroupName]);
+		}
+	}
+
 	return (
 		<Tooltip.Root>
 			<div className="relative">
+				<button
+					data-favorite={isFavorite}
+					onClick={toggleFavoriteStreamers}
+					className="p-1.5 rounded-md bg-stone-950/20 data-[favorite=true]:bg-mandy-900/60 absolute top-2 left-2 z-20"
+				>
+					{isFavorite && (
+						<HeartFilledIcon className="text-mandy-400" />
+					)}
+					{!isFavorite && <HeartIcon className="text-stone-800" />}
+				</button>
 				<Tooltip.Trigger asChild>
 					<button
 						onClick={() =>
@@ -71,7 +104,7 @@ export const Group = ({
 								);
 							});
 						}}
-						className="zIndex-10 p-1.5 rounded-md bg-red-500 absolute -top-2 -right-2 border border-red-950"
+						className="z-10 p-1.5 rounded-md bg-red-500 absolute -top-2 -right-2 border border-red-950"
 					>
 						<TrashIcon className="text-red-950" />
 					</button>
