@@ -18,6 +18,7 @@ import { getChannel } from "@/utils/getStreamUrl";
 import { GROUPS } from "@/data/groups";
 import { CreateGroup } from "./CreateGroup";
 import { useReadLocalStorage } from "usehooks-ts";
+import { sortGroups } from "@/utils/sortGroups";
 
 export const StreamersDialog = ({
 	locale,
@@ -157,53 +158,53 @@ export const StreamersDialog = ({
 							className="max-h-96 p-[2px] overflow-y-auto w-full mt-4 flex justify-center flex-row flex-wrap grid-cols-[repeat(2,_minmax(0,_6rem))] sm:grid-cols-[repeat(3,_minmax(0,_8rem))] gap-4 scrollbar pr-3"
 							value="groups"
 						>
-							{GROUPS.filter((_, index) => index < 4).map(
-								(group) => {
-									return (
-										<Group
-											key={group.groupName}
-											group={group}
-											onClick={() =>
-												toggleSelectedGroup(
-													group.simpleGroupName,
-													-1
-												)
-											}
-											selected={selectedGroups.includes(
-												group.simpleGroupName
-											)}
-											isOnline
-											isPlayingQsmp
-										/>
-									);
-								}
-							)}
+							{sortGroups(
+								GROUPS.filter((_, index) => index < 4)
+							).map((group) => {
+								return (
+									<Group
+										key={group.groupName}
+										group={group}
+										onClick={() =>
+											toggleSelectedGroup(
+												group.simpleGroupName,
+												-1
+											)
+										}
+										selected={selectedGroups.includes(
+											group.simpleGroupName
+										)}
+										isOnline
+										isPlayingQsmp
+									/>
+								);
+							})}
 							<Separator.Root
 								className="bg-cold-purple-500/20 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px mx-[15px]"
 								decorative
 								orientation="horizontal"
 							/>
-							{GROUPS.filter((_, index) => index >= 4).map(
-								(group) => {
-									return (
-										<Group
-											key={group.groupName}
-											group={group}
-											onClick={() =>
-												toggleSelectedGroup(
-													group.simpleGroupName,
-													-1
-												)
-											}
-											selected={selectedGroups.includes(
-												group.simpleGroupName
-											)}
-											isOnline
-											isPlayingQsmp
-										/>
-									);
-								}
-							)}
+							{sortGroups(
+								GROUPS.filter((_, index) => index >= 4)
+							).map((group) => {
+								return (
+									<Group
+										key={group.groupName}
+										group={group}
+										onClick={() =>
+											toggleSelectedGroup(
+												group.simpleGroupName,
+												-1
+											)
+										}
+										selected={selectedGroups.includes(
+											group.simpleGroupName
+										)}
+										isOnline
+										isPlayingQsmp
+									/>
+								);
+							})}
 							{customGroups && customGroups?.length > 0 && (
 								<>
 									<Separator.Root
@@ -211,7 +212,7 @@ export const StreamersDialog = ({
 										decorative
 										orientation="horizontal"
 									/>
-									{customGroups.map((group) => {
+									{sortGroups(customGroups).map((group) => {
 										return (
 											<Group
 												key={group.groupName}
