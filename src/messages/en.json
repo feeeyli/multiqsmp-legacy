@@ -14,7 +14,9 @@
 			"streamOnYoutube": "This streamer streams on Youtube.",
 			"groups": "Groups",
 			"createGroup": "Create group",
-			"chooseGroupName": "Choose a name for group:"
+			"chooseGroupName": "Choose a name for group:",
+			"newParticipant": "New participant!",
+			"newParticipants": "New participants!"
 		},
 		"organize": {
 			"title": "Reorder your lives or chats.",

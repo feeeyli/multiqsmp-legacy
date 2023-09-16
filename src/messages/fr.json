@@ -14,7 +14,9 @@
 			"streamOnYoutube": "Ce streamer diffuse sur Youtube.",
 			"groups": "Groupes",
 			"createGroup": "Créer un groupe",
-			"chooseGroupName": "Choisir un nom de groupe:"
+			"chooseGroupName": "Choisir un nom de groupe:",
+			"newParticipant": "Nouveau participant!",
+			"newParticipants": "Nouveaux participants!"
 		},
 		"organize": {
 			"title": "Réorganisez vos lives ou vos chats.",

@@ -14,7 +14,9 @@
 			"streamOnYoutube": "Este streamer hace directo en Youtube.",
 			"groups": "Grupos",
 			"createGroup": "Crear grupo",
-			"chooseGroupName": "Elija un nombre para el grupo:"
+			"chooseGroupName": "Elija un nombre para el grupo:",
+			"newParticipant": "Nueva participante!",
+			"newParticipants": "Nuevos participantes!"
 		},
 		"organize": {
 			"title": "Reordenar tus directos o chats.",

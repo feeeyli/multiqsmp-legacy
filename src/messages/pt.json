@@ -14,7 +14,9 @@
 			"streamOnYoutube": "Esse streamer faz live pelo Youtube.",
 			"groups": "Grupos",
 			"createGroup": "Criar grupo",
-			"chooseGroupName": "Escolha um nome para o grupo:"
+			"chooseGroupName": "Escolha um nome para o grupo:",
+			"newParticipant": "Nova participante!",
+			"newParticipants": "Novos participantes!"
 		},
 		"organize": {
 			"title": "Reorganize suas lives ou chats.",
