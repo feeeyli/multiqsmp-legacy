@@ -195,6 +195,13 @@ export const GROUPS = [
 		twitchNames: ["philza", "missasinfonia"],
 	},
 	{
+		groupName: "Death Family",
+		simpleGroupName: "deathfamily",
+		members: ["Philza", "MissaSinfonia", "Tubbo", "Forever"],
+		avatars: ["philza", "missasinfonia", "tubbo", "forever"],
+		twitchNames: ["philza", "missasinfonia", "tubbo", "forever"],
+	},
+	{
 		groupName: "Drama Trio",
 		simpleGroupName: "dramatrio",
 		members: ["Forever", "Baghera", "BadBoyHalo"],
@@ -211,9 +218,9 @@ export const GROUPS = [
 	{
 		groupName: "Family Brown",
 		simpleGroupName: "familybrown",
-		members: ["Veggeta777", "Foolish", "Roier"],
-		avatars: ["veggeta777", "Foolish_Gamers", "roier"],
-		twitchNames: ["veggeta777", "Foolish_Gamers", "roier"],
+		members: ["Vegetta777", "Foolish", "Roier"],
+		avatars: ["vegetta777", "Foolish_Gamers", "roier"],
+		twitchNames: ["vegetta777", "Foolish_Gamers", "roier"],
 	},
 	{
 		groupName: "Federation Trio",
@@ -242,6 +249,13 @@ export const GROUPS = [
 		members: ["Cellbit", "Forever"],
 		avatars: ["cellbit", "forever"],
 		twitchNames: ["cellbit", "forever"],
+	},
+	{
+		groupName: "Latinotrio",
+		simpleGroupName: "latinotrio",
+		members: ["Roier", "Quackity", "Cellbit"],
+		avatars: ["roier", "quackity", "cellbit"],
+		twitchNames: ["roier", "quackity", "cellbit"],
 	},
 	{
 		groupName: "Meanduo",
