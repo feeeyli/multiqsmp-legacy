@@ -20,6 +20,8 @@ export const SKIN_HEADS = {
 	tinakitten:
 		"https://s.namemc.com/2d/skin/face.png?id=be8e0c62ed1bcf8a&scale=32",
 	tubbo: "https://s.namemc.com/2d/skin/face.png?id=545b84de2e1bfa09&scale=32",
+	TubboLIVE:
+		"https://s.namemc.com/2d/skin/face.png?id=545b84de2e1bfa09&scale=32",
 	wilbursoot:
 		"https://s.namemc.com/2d/skin/face.png?id=094bdc5b74b2af11&scale=32",
 	elmariana:

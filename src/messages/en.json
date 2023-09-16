@@ -12,7 +12,9 @@
 			"avatar": "Avatar of",
 			"noPlaying": "This streamer may not be playing QSMP.",
 			"streamOnYoutube": "This streamer streams on Youtube.",
-			"groups": "Groups"
+			"groups": "Groups",
+			"createGroup": "Create group",
+			"chooseGroupName": "Choose a name for group:"
 		},
 		"organize": {
 			"title": "Reorder your lives or chats.",

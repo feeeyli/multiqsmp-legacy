@@ -16,6 +16,8 @@ import { PanelGroup, Panel, PanelResizeHandle } from "react-resizable-panels";
 import { ChatContext } from "@/contexts/ChatContext";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
+import { useReadLocalStorage } from "usehooks-ts";
+import { GROUPS } from "@/data/groups";
 
 interface Props {
 	params: {
@@ -25,8 +27,13 @@ interface Props {
 }
 
 export default function Streams({ params }: Props) {
+	const customGroups = useReadLocalStorage<typeof GROUPS>("customGroups");
+
 	const [selectedChannels, selectedChannelsFromGroups, selectedGroups] =
-		parseChannels(params.streams || []);
+		parseChannels(
+			params.streams || [],
+			(customGroups as typeof GROUPS) || []
+		);
 
 	const channelsMerged = [
 		...new Set([...selectedChannels, ...selectedChannelsFromGroups]),

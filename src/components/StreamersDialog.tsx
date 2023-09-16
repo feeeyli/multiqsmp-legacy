@@ -16,6 +16,8 @@ import { useEffect, useState } from "react";
 import { StreamType } from "@/@types/Stream";
 import { getChannel } from "@/utils/getStreamUrl";
 import { GROUPS } from "@/data/groups";
+import { CreateGroup } from "./CreateGroup";
+import { useReadLocalStorage } from "usehooks-ts";
 
 export const StreamersDialog = ({
 	locale,
@@ -27,7 +29,12 @@ export const StreamersDialog = ({
 	selectedGroups: string[];
 }) => {
 	const t = useTranslations("modal.streamers");
-	const [actualTab, setActualTab] = useState("groups");
+	const [actualTab, setActualTab] = useState("streamers");
+	const customGroups = useReadLocalStorage<typeof GROUPS>("customGroups");
+
+	const MERGED_GROUPS = [
+		...new Set([...GROUPS, ...((customGroups as typeof GROUPS) || [])]),
+	];
 
 	const [onlineStreamers, setOnlineStreamers] = useState<
 		{ twitchName: string; isPlayingQsmp: boolean }[]
@@ -197,11 +204,40 @@ export const StreamersDialog = ({
 									);
 								}
 							)}
+							{customGroups && customGroups?.length > 0 && (
+								<>
+									<Separator.Root
+										className="bg-cold-purple-500/20 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px mx-[15px]"
+										decorative
+										orientation="horizontal"
+									/>
+									{customGroups.map((group) => {
+										return (
+											<Group
+												key={group.groupName}
+												group={group}
+												onClick={() =>
+													toggleSelectedGroup(
+														group.simpleGroupName,
+														-1
+													)
+												}
+												selected={selectedGroups.includes(
+													group.simpleGroupName
+												)}
+												isOnline
+												isPlayingQsmp
+												custom
+											/>
+										);
+									})}
+								</>
+							)}
 						</Tabs.Content>
 					</Tabs.Root>
 				</Dialog.Main>
 				<Dialog.Footer className="justify-between">
-					<div className="space-x-2">
+					<div className="flex gap-2">
 						<button
 							className="p-2 rounded-md hover:bg-zinc-800 transition-colors"
 							onClick={() => {
@@ -225,7 +261,7 @@ export const StreamersDialog = ({
 
 								if (actualTab === "groups")
 									setSelectedGroups(
-										GROUPS.map(
+										MERGED_GROUPS.map(
 											(streamer) =>
 												streamer.simpleGroupName
 										)
@@ -234,6 +270,11 @@ export const StreamersDialog = ({
 						>
 							<CheckSquare size={18} color="#fff" />
 						</button>
+						<CreateGroup
+							selectedStreamers={STREAMERS.filter((s) =>
+								selectedStreamers.includes(s.twitchName)
+							)}
+						/>
 					</div>
 					<Link
 						className="flex font-light items-center gap-2 text-cold-purple-500 hover:bg-zinc-800 p-2 px-4 rounded-lg transition-colors"

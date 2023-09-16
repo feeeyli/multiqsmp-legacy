@@ -12,7 +12,9 @@
 			"avatar": "Avatar de",
 			"noPlaying": "Esse streamer pode não estar jogando QSMP.",
 			"streamOnYoutube": "Esse streamer faz live pelo Youtube.",
-			"groups": "Grupos"
+			"groups": "Grupos",
+			"createGroup": "Criar grupo",
+			"chooseGroupName": "Escolha um nome para o grupo:"
 		},
 		"organize": {
 			"title": "Reorganize suas lives ou chats.",

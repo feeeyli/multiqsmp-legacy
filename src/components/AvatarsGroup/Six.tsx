@@ -11,7 +11,7 @@ export const Six = ({ group }: Props) => {
 	const t = useTranslations("modal.streamers");
 
 	return (
-		<div className="w-24 h-24 sm:w-32 sm:h-32 relative">
+		<div className="w-24 h-24 sm:w-32 sm:h-32 relative overflow-hidden rounded-xl">
 			<div className="grid grid-cols-3 w-full absolute top-1/2 -translate-y-1/2">
 				{group.avatars.map((avatar) => (
 					<Image

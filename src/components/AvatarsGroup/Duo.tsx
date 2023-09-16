@@ -11,7 +11,7 @@ export const Duo = ({ group }: Props) => {
 	const t = useTranslations("modal.streamers");
 
 	return (
-		<div className="w-24 h-24 sm:w-32 sm:h-32 relative">
+		<div className="w-24 h-24 sm:w-32 sm:h-32 relative overflow-hidden rounded-xl">
 			<Image
 				src={getSkinHead(group.avatars[0])}
 				alt={t("avatar") + group.avatars[0]}
