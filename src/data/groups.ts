@@ -327,7 +327,7 @@ export const GROUPS = [
 		twitchNames: ["bagi", "cellbit"],
 	},
 	{
-		groupName: "R & R",
+		groupName: "Rivoier",
 		simpleGroupName: "rr",
 		members: ["Roier", "Rivers"],
 		avatars: ["roier", "rivers_gg"],
