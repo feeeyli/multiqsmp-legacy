@@ -12,13 +12,16 @@ import { Dialog } from "./Dialog";
 import * as Tabs from "@radix-ui/react-tabs";
 import * as Separator from "@radix-ui/react-separator";
 import { ArrowRightIcon, UpdateIcon } from "@radix-ui/react-icons";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { StreamType } from "@/@types/Stream";
 import { getChannel } from "@/utils/getStreamUrl";
 import { GROUPS } from "@/data/groups";
 import { CreateGroup } from "./CreateGroup";
 import { useReadLocalStorage } from "usehooks-ts";
 import { sortGroups } from "@/utils/sortGroups";
+import { PlayersContext } from "@/contexts/PlayersContext";
+import { StreamsAndGroupsContent } from "@/contexts/StreamsAndGroupsContent";
+import { DialogClose } from "@radix-ui/react-dialog";
 
 export const StreamersDialog = ({
 	locale,
@@ -86,6 +89,11 @@ export const StreamersDialog = ({
 		selectedGroups,
 		{ updateList: setSelectedGroups, toggleItem: toggleSelectedGroup },
 	] = useList(initialSelectedGroups);
+
+	const [
+		[, { updateList: updateStreamsList }],
+		[, { updateList: updateGroupsList }],
+	] = useContext(StreamsAndGroupsContent);
 
 	return (
 		<Dialog.Root
@@ -277,14 +285,22 @@ export const StreamersDialog = ({
 							)}
 						/>
 					</div>
-					<Link
-						className="flex font-light items-center gap-2 text-cold-purple-500 hover:bg-zinc-800 p-2 px-4 rounded-lg transition-colors"
-						href={`/${locale}/${selectedStreamers.join(
-							"/"
-						)}/${selectedGroups.join("/")}`}
-					>
-						{t("watch")} <ArrowRightIcon className="h-4 w-4" />
-					</Link>
+					<DialogClose asChild>
+						<Link
+							className="flex font-light items-center gap-2 text-cold-purple-500 hover:bg-zinc-800 p-2 px-4 rounded-lg transition-colors"
+							href={`?${
+								selectedStreamers.length > 0
+									? "streamers=" + selectedStreamers.join("/")
+									: ""
+							}${
+								selectedGroups.length > 0
+									? "&groups=" + selectedGroups.join("/")
+									: ""
+							}`}
+						>
+							{t("watch")} <ArrowRightIcon className="h-4 w-4" />
+						</Link>
+					</DialogClose>
 				</Dialog.Footer>
 			</Dialog.Content>
 		</Dialog.Root>

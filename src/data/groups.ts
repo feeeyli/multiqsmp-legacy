@@ -11,7 +11,7 @@ export const GROUPS = [
 			"mikethelink",
 			"pactw",
 		],
-		twitchNames: ["bagi", "cellbit", "forever", "felps", "tazerCraft"],
+		twitchNames: ["bagi", "cellbit", "forever", "felps", "tazercraft"],
 	},
 	{
 		groupName: "France",
@@ -262,7 +262,7 @@ export const GROUPS = [
 		simpleGroupName: "hidetrio",
 		members: ["Fit", "TazerCraft"],
 		avatars: ["fitmc", "mikethelink", "pactw"],
-		twitchNames: ["fitmc", "tazerCraft"],
+		twitchNames: ["fitmc", "tazercraft"],
 	},
 	{
 		groupName: "Insandeduo",

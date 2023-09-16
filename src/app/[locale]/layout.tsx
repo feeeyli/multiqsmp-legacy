@@ -5,6 +5,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { ChatContextProvider } from "@/contexts/ChatContext";
 import { PlayersContextProvider } from "@/contexts/PlayersContext";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
+import { StreamsAndGroupsContextProvider } from "@/contexts/StreamsAndGroupsContent";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400"] });
 
@@ -38,7 +39,9 @@ export default async function RootLayout({
 				<NextIntlClientProvider locale={locale} messages={messages}>
 					<ChatContextProvider>
 						<PlayersContextProvider>
-							{children}
+							<StreamsAndGroupsContextProvider>
+								{children}
+							</StreamsAndGroupsContextProvider>
 						</PlayersContextProvider>
 					</ChatContextProvider>
 				</NextIntlClientProvider>

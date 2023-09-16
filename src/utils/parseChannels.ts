@@ -1,7 +1,10 @@
 import { GROUPS } from "@/data/groups";
 import { STREAMERS } from "@/data/streamers";
 
-function getStreamersFromGroup(groups: string[], MERGED_GROUPS: typeof GROUPS) {
+export function getStreamersFromGroup(
+	groups: string[],
+	MERGED_GROUPS: typeof GROUPS
+) {
 	const acceptedGroups = MERGED_GROUPS.map((group) => group.simpleGroupName);
 
 	const filteredGroups = groups.filter((group) =>

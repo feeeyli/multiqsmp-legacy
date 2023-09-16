@@ -4,7 +4,7 @@ import { StreamersDialog } from "@/components/StreamersDialog";
 import { Player } from "@/components/Player";
 import { Chats } from "@/components/Chats";
 
-import { getStreamersFromGroup, parseChannels } from "@/utils/parseChannels";
+import { parseChannels } from "@/utils/parseChannels";
 import { useTranslations } from "next-intl";
 import { getColumns } from "@/utils/getColumns";
 import { useContext, useEffect, useState } from "react";
@@ -18,8 +18,6 @@ import { useMediaQuery } from "@uidotdev/usehooks";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
 import { useReadLocalStorage } from "usehooks-ts";
 import { GROUPS } from "@/data/groups";
-import { STREAMERS } from "@/data/streamers";
-import { useRouter, useSearchParams } from "next/navigation";
 
 interface Props {
 	params: {
@@ -31,50 +29,24 @@ interface Props {
 export default function Streams({ params }: Props) {
 	const customGroups = useReadLocalStorage<typeof GROUPS>("customGroups");
 
-	const router = useRouter();
-
-	if (params.streams) {
-		const [selectedChannels, , selectedGroups] = parseChannels(
+	const [selectedChannels, selectedChannelsFromGroups, selectedGroups] =
+		parseChannels(
 			params.streams || [],
 			(customGroups as typeof GROUPS) || []
 		);
 
-		router.replace(
-			`/${params.locale}?${
-				selectedChannels.length > 0
-					? "streamers=" + selectedChannels.join("/")
-					: ""
-			}${
-				selectedGroups.length > 0
-					? "&groups=" + selectedGroups.join("/")
-					: ""
-			}`
-		);
-	}
-
-	const searchParams = useSearchParams();
+	const channelsMerged = [
+		...new Set([...selectedChannels, ...selectedChannelsFromGroups]),
+	];
 
 	const [resizing, setResizing] = useState(false);
 
-	const selectedChannels =
-		searchParams.get("streamers") === ""
-			? []
-			: searchParams.get("streamers")?.split("/") || [];
-	const selectedGroups =
-		searchParams.get("groups") === ""
-			? []
-			: searchParams.get("groups")?.split("/") || [];
-
+	const [, { updateList }] = useContext(PlayersContext);
 	const [chatList] = useContext(ChatContext);
 
-	const channelsMerged = [
-		...new Set([
-			...selectedChannels,
-			...getStreamersFromGroup(selectedGroups, [
-				...new Set([...GROUPS, ...(customGroups || [])]),
-			]),
-		]),
-	];
+	useEffect(() => {
+		updateList(channelsMerged);
+	}, []);
 
 	const t = useTranslations("index");
 

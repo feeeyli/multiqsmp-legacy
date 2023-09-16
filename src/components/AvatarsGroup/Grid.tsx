@@ -18,8 +18,8 @@ export const Grid = ({ group, groupsAmount }: Props) => {
 		: 4;
 
 	return (
-		<div className="w-24 h-24 sm:w-32 sm:h-32 flex items-center">
-			<div className="flex flex-wrap w-full max-h-24 sm:max-h-32 justify-center overflow-hidden rounded-xl">
+		<div className="w-24 h-24 sm:w-32 sm:h-32 flex items-center overflow-hidden rounded-xl">
+			<div className="flex flex-wrap w-full max-h-24 sm:max-h-32 justify-center">
 				{group.avatars.map((avatar) => (
 					<picture
 						key={avatar}
