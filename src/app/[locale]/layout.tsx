@@ -1,13 +1,8 @@
-import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { ChatContextProvider } from "@/contexts/ChatContext";
 import { PlayersContextProvider } from "@/contexts/PlayersContext";
-import { TooltipProvider } from "@radix-ui/react-tooltip";
 import { StreamsAndGroupsContextProvider } from "@/contexts/StreamsAndGroupsContent";
-
-const poppins = Poppins({ subsets: ["latin"], weight: ["400"] });
 
 export function generateStaticParams() {
 	return [
