@@ -9,12 +9,13 @@ export const metadata: Metadata = {
 
 ReactGA.initialize(process.env.NEXT_PUBLIC_GA_ID!);
 
-ReactGA.send({
-	hitType: "pageview",
-	page: "/pt",
-	title: "Acesso em Português",
-});
-ReactGA.send({ hitType: "pageview", page: "/en", title: "Acesso em Inglês" });
+// ReactGA.send({
+// 	hitType: "pageview",
+// 	page: "/pt",
+// 	title: "Acesso em Português",
+// });
+// ReactGA.send({ hitType: "pageview", page: "/en", title: "Acesso em Inglês" });
+ReactGA.send({ hitType: "pageview", page: window.location.pathname });
 
 export default async function RootLayout({
 	children,
