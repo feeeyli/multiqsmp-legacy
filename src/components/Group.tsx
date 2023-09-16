@@ -99,6 +99,12 @@ export const Group = ({
 					<button
 						onClick={() => {
 							setCustomGroups((old) => {
+								setFavoriteGroups((old) =>
+									old.filter(
+										(g) => group.simpleGroupName !== g
+									)
+								);
+
 								return old.filter(
 									(g) => g.groupName !== group.groupName
 								);

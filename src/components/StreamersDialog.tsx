@@ -109,10 +109,11 @@ export const StreamersDialog = ({
 		(s) => !favoriteStreamers?.includes(s.twitchName)
 	);
 
-	const FAVORITE_GROUPS = GROUPS.filter((g) =>
+	const FAVORITE_GROUPS = MERGED_GROUPS.filter((g) =>
 		favoriteGroups?.includes(g.simpleGroupName)
 	);
-	const NORMAL_GROUPS = GROUPS.filter(
+
+	const NORMAL_GROUPS = MERGED_GROUPS.filter(
 		(g) => !favoriteGroups?.includes(g.simpleGroupName)
 	);
 
@@ -366,35 +367,48 @@ export const StreamersDialog = ({
 									/>
 								);
 							})}
-							{customGroups && customGroups?.length > 0 && (
-								<>
-									<Separator.Root
-										className="bg-cold-purple-500/20 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px mx-[15px]"
-										decorative
-										orientation="horizontal"
-									/>
-									{sortGroups(customGroups).map((group) => {
-										return (
-											<Group
-												key={group.groupName}
-												group={group}
-												onClick={() =>
-													toggleSelectedGroup(
-														group.simpleGroupName,
-														-1
+							{customGroups &&
+								customGroups.filter(
+									(g) =>
+										!favoriteGroups?.includes(
+											g.simpleGroupName
+										)
+								)?.length > 0 && (
+									<>
+										<Separator.Root
+											className="bg-cold-purple-500/20 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px mx-[15px]"
+											decorative
+											orientation="horizontal"
+										/>
+										{sortGroups(
+											customGroups.filter(
+												(g) =>
+													!favoriteGroups?.includes(
+														g.simpleGroupName
 													)
-												}
-												selected={selectedGroups.includes(
-													group.simpleGroupName
-												)}
-												isOnline
-												isPlayingQsmp
-												custom
-											/>
-										);
-									})}
-								</>
-							)}
+											)
+										).map((group) => {
+											return (
+												<Group
+													key={group.groupName}
+													group={group}
+													onClick={() =>
+														toggleSelectedGroup(
+															group.simpleGroupName,
+															-1
+														)
+													}
+													selected={selectedGroups.includes(
+														group.simpleGroupName
+													)}
+													isOnline
+													isPlayingQsmp
+													custom
+												/>
+											);
+										})}
+									</>
+								)}
 						</Tabs.Content>
 					</Tabs.Root>
 				</Dialog.Main>
