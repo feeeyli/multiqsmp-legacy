@@ -43,6 +43,10 @@ export default async function RootLayout({
 						`,
 					}}
 				></Script>
+				<meta
+					name="google-site-verification"
+					content="QQVNDnqV_O0kGHcKhluDoGXKAkDTTP3UcMJzVhoMadQ"
+				/>
 			</head>
 			<body className={"min-h-screen h-full overflow-x-hidden"}>
 				{children}
