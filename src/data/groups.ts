@@ -432,8 +432,8 @@ export const GROUPS = [
 		],
 	},
 	{
-		groupName: "Mistérioduo",
-		simpleGroupName: "misterioduo",
+		groupName: "Gêmeos do Mistério",
+		simpleGroupName: "gemeosmisterio",
 		members: ["Bagi", "Cellbit"],
 		avatars: ["bagi", "cellbit"],
 		twitchNames: ["bagi", "cellbit"],
