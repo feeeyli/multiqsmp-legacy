@@ -25,23 +25,25 @@ export default async function RootLayout({
 					})(window,document,'script','dataLayer','G-P0V7XD4TFG');
 					`}
 			</Script> */}
-			<Script
-				async
-				src={`https://www.googletagmanager.com/gtag/js? 
-				id=${GA_ID}`}
-			></Script>
-			<Script
-				id="google-analytics"
-				dangerouslySetInnerHTML={{
-					__html: `
-						window.dataLayer = window.dataLayer || [];
-						function gtag(){dataLayer.push(arguments);}
-						gtag('js', new Date());
+			<head>
+				<Script
+					async
+					src={`https://www.googletagmanager.com/gtag/js? 
+					id=${GA_ID}`}
+				></Script>
+				<Script
+					id="google-analytics"
+					dangerouslySetInnerHTML={{
+						__html: `
+							window.dataLayer = window.dataLayer || [];
+							function gtag(){dataLayer.push(arguments);}
+							gtag('js', new Date());
 
-						gtag('config', '${GA_ID}');
-					`,
-				}}
-			></Script>
+							gtag('config', '${GA_ID}');
+						`,
+					}}
+				></Script>
+			</head>
 			<body className={"min-h-screen h-full overflow-x-hidden"}>
 				{children}
 				<Analytics />
