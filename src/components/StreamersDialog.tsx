@@ -155,7 +155,7 @@ export const StreamersDialog = ({
 							</Tabs.Trigger>
 						</Tabs.List>
 						<Tabs.Content
-							className="max-h-96 p-[2px] overflow-y-auto w-full mt-4 flex justify-center flex-row flex-wrap grid-cols-[repeat(2,_minmax(0,_6rem))] sm:grid-cols-[repeat(3,_minmax(0,_8rem))] gap-4 scrollbar pr-3"
+							className="data-[state=inactive]:hidden max-h-96 p-[2px] overflow-y-auto w-full mt-4 flex justify-center flex-row flex-wrap grid-cols-[repeat(2,_minmax(0,_6rem))] sm:grid-cols-[repeat(3,_minmax(0,_8rem))] gap-4 scrollbar pr-3"
 							value="streamers"
 						>
 							{flags?.new_participant && (
@@ -278,7 +278,7 @@ export const StreamersDialog = ({
 							})}
 						</Tabs.Content>
 						<Tabs.Content
-							className="max-h-96 p-[2px] overflow-y-auto w-full mt-4 flex justify-center flex-row flex-wrap grid-cols-[repeat(2,_minmax(0,_6rem))] sm:grid-cols-[repeat(3,_minmax(0,_8rem))] gap-4 scrollbar pr-3"
+							className="data-[state=inactive]:hidden max-h-96 p-[2px] overflow-y-auto pt-4 w-full flex justify-center flex-row flex-wrap grid-cols-[repeat(2,_minmax(0,_6rem))] sm:grid-cols-[repeat(3,_minmax(0,_8rem))] gap-4 scrollbar pr-3"
 							value="groups"
 						>
 							{FAVORITE_GROUPS.length > 0 && (
