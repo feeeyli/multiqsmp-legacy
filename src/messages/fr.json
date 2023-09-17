@@ -3,7 +3,9 @@
 		"noStreamers": "Il semble que vous n'ayez pas encore choisi de streamer.",
 		"instructionsPc": "Cliquez sur le bouton à droite et commencez à regarder !",
 		"instructionsMobile": "Cliquez sur le bouton ci-dessous et commencez à regarder !",
-		"changeStreamers": "Modifier la liste des streamers"
+		"changeStreamers": "Modifier la liste des streamers",
+		"credits1": "Réalisé avec 💜🤍 par",
+		"credits2": "pour l'ensemble de la communauté du QSMP.!"
 	},
 	"modal": {
 		"streamers": {

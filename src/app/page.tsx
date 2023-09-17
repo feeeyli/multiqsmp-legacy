@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Home() {
 	return (
-		<div className="min-h-screen bg-cold-purple-950 text-white flex flex-col items-center pt-24">
+		<div className="min-h-screen bg-cold-purple-950 text-white flex flex-col items-center py-24">
 			<header>
 				<h1 className="text-3xl font-bold">MultiQSMP</h1>
 				<div className="grid grid-cols-2 justify-items-center gap-4 gap-y-1">
@@ -13,7 +13,7 @@ export default function Home() {
 					<h2 className="text-cold-purple-200">Bienvenu</h2>
 				</div>
 			</header>
-			<main className="mt-8">
+			<main className="mt-8 flex-1">
 				<div className="grid grid-cols-2 gap-8 gap-y-4">
 					<Link href="/pt" className="text-center">
 						<Image
@@ -66,6 +66,18 @@ export default function Home() {
 					</Link>
 				</div>
 			</main>
+			<footer>
+				<span className="text-cold-purple-200 text-sm">
+					Feito com 💜 por{" "}
+					<Link
+						href="https://twitter.com/feeeyli"
+						className="text-[#FFA4CF] underline"
+					>
+						Feyli
+					</Link>{" "}
+					para toda comunidade do QSMP!
+				</span>
+			</footer>
 		</div>
 	);
 }
