@@ -98,7 +98,7 @@ export const StreamersDialog = ({
 		{ updateList: setSelectedGroups, toggleItem: toggleSelectedGroup },
 	] = useList(initialSelectedGroups);
 
-	const SPECIAL_STREAMERS = !true
+	const SPECIAL_STREAMERS = !flags?.new_participant
 		? STREAMERS
 		: STREAMERS.filter((streamer) => streamer.twitchName !== "bagi");
 
@@ -158,7 +158,7 @@ export const StreamersDialog = ({
 							className="data-[state=inactive]:hidden max-h-96 p-[2px] overflow-y-auto w-full mt-4 flex justify-center flex-row flex-wrap grid-cols-[repeat(2,_minmax(0,_6rem))] sm:grid-cols-[repeat(3,_minmax(0,_8rem))] gap-4 scrollbar pr-3"
 							value="streamers"
 						>
-							{true && (
+							{flags?.new_participant && (
 								<div className="flex w-full items-center gap-2 flex-col">
 									<span className="text-cold-purple-500 font-bold">
 										{t("newParticipant")}
