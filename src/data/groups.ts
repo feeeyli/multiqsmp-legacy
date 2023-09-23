@@ -42,6 +42,7 @@ export const GROUPS = [
 		groupName: "Hispano hablantes",
 		simpleGroupName: "hispanos",
 		members: [
+			"Carreraaa",
 			"ElMariana",
 			"German",
 			"QuackityToo",
@@ -57,6 +58,7 @@ export const GROUPS = [
 			"Willyrex",
 		],
 		avatars: [
+			"carreraaa",
 			"elmariana",
 			"germangarmendia",
 			"quackitytoo",
@@ -72,6 +74,7 @@ export const GROUPS = [
 			"willyrex",
 		],
 		twitchNames: [
+			"carreraaa",
 			"elmariana",
 			"germangarmendia",
 			"quackitytoo",
@@ -138,5 +141,5 @@ export const GROUPS = [
 			"tubbo",
 			"wilbursoot",
 		],
-	}
+	},
 ];

@@ -7,8 +7,48 @@ const config: Config = {
 		"./src/app/**/*.{js,ts,jsx,tsx,mdx}",
 	],
 	theme: {
+		container: {
+			center: true,
+			padding: "2rem",
+			screens: {
+				"2xl": "1400px",
+			},
+		},
 		extend: {
 			colors: {
+				border: "var(--border)",
+				input: "var(--input)",
+				ring: "var(--ring)",
+				background: "var(--background)",
+				foreground: "var(--foreground)",
+				primary: {
+					DEFAULT: "var(--primary)",
+					foreground: "var(--primary-foreground)",
+				},
+				secondary: {
+					DEFAULT: "var(--secondary)",
+					foreground: "var(--secondary-foreground)",
+				},
+				destructive: {
+					DEFAULT: "var(--destructive)",
+					foreground: "var(--destructive-foreground)",
+				},
+				muted: {
+					DEFAULT: "var(--muted)",
+					foreground: "var(--muted-foreground)",
+				},
+				accent: {
+					DEFAULT: "var(--accent)",
+					foreground: "var(--accent-foreground)",
+				},
+				popover: {
+					DEFAULT: "var(--popover)",
+					foreground: "var(--popover-foreground)",
+				},
+				card: {
+					DEFAULT: "var(--card)",
+					foreground: "var(--card-foreground)",
+				},
 				black: "#050505",
 				white: "#fcfcfc",
 				"cold-purple": {
@@ -106,7 +146,6 @@ const config: Config = {
 			screens: {
 				wb: "963px",
 			},
-
 			keyframes: {
 				wow: {
 					from: {
@@ -154,6 +193,14 @@ const config: Config = {
 					from: { opacity: "0", transform: "translateX(-2px)" },
 					to: { opacity: "1", transform: "translateX(0)" },
 				},
+				"accordion-down": {
+					from: { height: "0" },
+					to: { height: "var(--radix-accordion-content-height)" },
+				},
+				"accordion-up": {
+					from: { height: "var(--radix-accordion-content-height)" },
+					to: { height: "0" },
+				},
 			},
 			animation: {
 				overlayShow: "overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1)",
@@ -169,9 +216,16 @@ const config: Config = {
 				slideRightAndFade:
 					"slideRightAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
 				wow: "wow 400ms cubic-bezier(0.72, 0.01, 0.22, 0.96)",
+				"accordion-down": "accordion-down 0.2s ease-out",
+				"accordion-up": "accordion-up 0.2s ease-out",
 			},
 			fontFamily: {
 				sans: ["Poppins", "sans-serif"],
+			},
+			borderRadius: {
+				lg: "var(--radius)",
+				md: "calc(var(--radius) - 2px)",
+				sm: "calc(var(--radius) - 4px)",
 			},
 		},
 		fontSize: {
@@ -185,6 +239,6 @@ const config: Config = {
 			"4xl": "3rem",
 		},
 	},
-	plugins: [],
+	plugins: [require("tailwindcss-animate")],
 };
 export default config;

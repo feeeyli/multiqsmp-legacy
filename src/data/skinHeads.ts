@@ -24,6 +24,8 @@ export const SKIN_HEADS = {
 		"https://s.namemc.com/2d/skin/face.png?id=545b84de2e1bfa09&scale=32",
 	wilbursoot:
 		"https://s.namemc.com/2d/skin/face.png?id=094bdc5b74b2af11&scale=32",
+	carreraaa:
+		"https://s.namemc.com/2d/skin/face.png?id=b7953b8702441e0a&scale=32",
 	elmariana:
 		"https://s.namemc.com/2d/skin/face.png?id=f83dae87f4c4a181&scale=32",
 	germangarmendia:
@@ -55,6 +57,7 @@ export const SKIN_HEADS = {
 	felps: "https://s.namemc.com/2d/skin/face.png?id=60aa9227d3c55836&scale=32",
 	mikethelink:
 		"https://s.namemc.com/2d/skin/face.png?id=6bc1332059bb2e3c&scale=32",
+	peqitw: "https://s.namemc.com/2d/skin/face.png?id=06b352d72c7f7adf&scale=32",
 	pactw: "https://s.namemc.com/2d/skin/face.png?id=06b352d72c7f7adf&scale=32",
 	antoinedaniel:
 		"https://s.namemc.com/2d/skin/face.png?id=9a5dc83f41384a35&scale=32",
