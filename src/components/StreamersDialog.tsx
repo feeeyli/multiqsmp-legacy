@@ -98,14 +98,21 @@ export const StreamersDialog = ({
 		{ updateList: setSelectedGroups, toggleItem: toggleSelectedGroup },
 	] = useList(initialSelectedGroups);
 
-	const SPECIAL_STREAMERS = !flags?.new_participant
-		? STREAMERS
-		: STREAMERS.filter((streamer) => streamer.twitchName !== "bagi");
+	const specialStreamersList =
+		process.env.NEXT_PUBLIC_NEW_PARTICIPANTS?.split("/") || [];
 
-	const FAVORITE_STREAMERS = SPECIAL_STREAMERS.filter((s) =>
+	const SPECIAL_STREAMERS = STREAMERS.filter((s) =>
+		specialStreamersList.includes(s.twitchName)
+	);
+
+	const NO_SPECIAL_STREAMERS = STREAMERS.filter(
+		(s) => !specialStreamersList.includes(s.twitchName)
+	);
+
+	const FAVORITE_STREAMERS = NO_SPECIAL_STREAMERS.filter((s) =>
 		favoriteStreamers?.includes(s.twitchName)
 	);
-	const NORMAL_STREAMERS = SPECIAL_STREAMERS.filter(
+	const NORMAL_STREAMERS = NO_SPECIAL_STREAMERS.filter(
 		(s) => !favoriteStreamers?.includes(s.twitchName)
 	);
 
@@ -158,44 +165,61 @@ export const StreamersDialog = ({
 							className="data-[state=inactive]:hidden max-h-96 p-[2px] overflow-y-auto w-full mt-4 flex justify-center flex-row flex-wrap grid-cols-[repeat(2,_minmax(0,_6rem))] sm:grid-cols-[repeat(3,_minmax(0,_8rem))] gap-4 scrollbar pr-3"
 							value="streamers"
 						>
-							{flags?.new_participant && (
+							{SPECIAL_STREAMERS.length > 0 && (
 								<div className="flex w-full items-center gap-2 flex-col">
 									<span className="text-cold-purple-500 font-bold">
-										{t("newParticipant")}
+										{t(
+											SPECIAL_STREAMERS.length === 1
+												? "newParticipant"
+												: "newParticipants"
+										)}
 									</span>
-									<Streamer
-										streamer={
-											STREAMERS.find(
-												(s) => s.twitchName === "bagi"
-											)!
-										}
-										onClick={() =>
-											toggleSelectedStreamer("bagi", -1)
-										}
-										selected={selectedStreamers.includes(
-											"bagi"
+									<div className="flex flex-wrap gap-4">
+										{sortStreamers(SPECIAL_STREAMERS).map(
+											(streamer) => {
+												const actualStream =
+													onlineStreamers.find(
+														(online) =>
+															online.twitchName.toLocaleLowerCase() ===
+															streamer.twitchName.toLocaleLowerCase()
+													);
+
+												return (
+													<Streamer
+														key={
+															streamer.twitchName
+														}
+														streamer={streamer}
+														onClick={() =>
+															toggleSelectedStreamer(
+																streamer.twitchName,
+																-1
+															)
+														}
+														selected={selectedStreamers.includes(
+															streamer.twitchName
+														)}
+														isOnline={
+															!!actualStream
+														}
+														isPlayingQsmp={
+															!!actualStream?.isPlayingQsmp
+														}
+														isYoutubeStream={/^U/.test(
+															getChannel(
+																streamer.twitchName
+															)
+														)}
+														isFavorite={favoriteStreamers?.includes(
+															streamer.twitchName
+														)}
+													/>
+												);
+											}
 										)}
-										isOnline={
-											!!onlineStreamers.find(
-												(online) =>
-													online.twitchName.toLocaleLowerCase() ===
-													"bagi"
-											)
-										}
-										isPlayingQsmp={
-											!!onlineStreamers.find(
-												(online) =>
-													online.twitchName.toLocaleLowerCase() ===
-													"bagi"
-											)?.isPlayingQsmp
-										}
-										isYoutubeStream={false}
-										isFavorite={favoriteStreamers?.includes(
-											"bagi"
-										)}
-									/>
+									</div>
 									<Separator.Root
-										className="bg-cold-purple-500/20 my-2 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px mx-[15px]"
+										className="bg-cold-purple-500/20 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px mx-[15px]"
 										decorative
 										orientation="horizontal"
 									/>
