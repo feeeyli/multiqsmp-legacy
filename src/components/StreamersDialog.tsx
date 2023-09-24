@@ -98,8 +98,7 @@ export const StreamersDialog = ({
 		{ updateList: setSelectedGroups, toggleItem: toggleSelectedGroup },
 	] = useList(initialSelectedGroups);
 
-	const specialStreamersList =
-		process.env.NEXT_PUBLIC_NEW_PARTICIPANTS?.split("/") || [];
+	const specialStreamersList = ["carreraaa"];
 
 	const SPECIAL_STREAMERS = STREAMERS.filter((s) =>
 		specialStreamersList.includes(s.twitchName)
